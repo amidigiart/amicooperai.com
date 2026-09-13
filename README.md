@@ -37,7 +37,7 @@ The Cooper Engine source lives at [amicooperai-engine](https://github.com/amidig
 
 ## Part of
 
-[ami* / BRIDGRAI Ecosystem](https://bridgrai.com) — 174 IP assets on Tezos mainnet.
+[ami* / BRIDGRAI Ecosystem](https://bridgrai.com) — 182 IP assets on Tezos mainnet.
 
 ## Author
 

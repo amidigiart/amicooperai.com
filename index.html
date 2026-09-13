@@ -211,11 +211,20 @@ footer a{color:var(--accent);text-decoration:none}
   <div class="status">In development &mdash; private beta coming 2026</div>
 </section>
 
+<!-- THE PROBLEM -->
+<section>
+  <h2>The Problem</h2>
+  <div class="line"></div>
+  <p>The AI you use today runs on someone else&rsquo;s server. Your questions, your family&rsquo;s conversations, your child&rsquo;s homework &mdash; processed on infrastructure you don&rsquo;t control, by companies that monetise your data.</p>
+  <p>The alternative &mdash; running an open model locally &mdash; requires technical skill, 8&ndash;32 GB of RAM, and gives you a raw model with no safety guardrails, no honest refusal, no protection for children.</p>
+  <p><strong>Cooper is the third option:</strong> an AI brain small enough for any home, safe enough for any family, honest enough to say &ldquo;I don&rsquo;t know.&rdquo;</p>
+</section>
+
 <!-- WHAT COOPER IS -->
 <section>
   <h2>What Cooper Is</h2>
   <div class="line"></div>
-  <p>Cooper is a local AI assistant that runs in your home. It doesn&rsquo;t need the cloud. It doesn&rsquo;t act on its own. It waits for you &mdash; and answers honestly.</p>
+  <p><strong>Cooper is the smallest viable AI brain</strong> &mdash; viable meaning: it answers a family&rsquo;s real questions honestly, in six languages, on consumer hardware, with structural safety built in. Not a toy. Not a demo. A brain that works.</p>
   <p>Small enough to run on a phone, a Raspberry Pi, a ten-year-old laptop. No GPU farm. No subscription required to think.</p>
   <p>One structural constraint: <strong>a human must guide it.</strong> Cooper does not decide. Cooper does not act autonomously. Cooper waits, processes, returns an honest answer &mdash; or says &ldquo;I don&rsquo;t know.&rdquo;</p>
   <p>This is not artificial general intelligence. This is <strong>artificial cooperation.</strong></p>
@@ -328,6 +337,40 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
 </section>
 
+<!-- WHY NOT JUST OLLAMA -->
+<section>
+  <h2>Why Not Just Run a Local Model?</h2>
+  <div class="line"></div>
+  <p>You can run Phi-3 or Llama through Ollama today. Cooper is not the model &mdash; Cooper is what wraps it:</p>
+  <div class="limit-grid">
+    <div class="cap-item">
+      <div class="cap-icon">&#128737;</div>
+      <div class="cap-text"><strong>DSEI 7 safety principles</strong> &mdash; enforced at build time with 146 automated tests, not optional prompt instructions</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#9940;</div>
+      <div class="cap-text"><strong>Honest refusal is structural</strong> &mdash; hardcoded in the engine, not a system prompt that can be jailbroken</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#128100;</div>
+      <div class="cap-text"><strong>Human anchor as invariant</strong> &mdash; every inference requires a registered human. No background processing. No autonomous action.</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#128167;</div>
+      <div class="cap-text"><strong>TVE 6-axis manipulation detection</strong> &mdash; built into the engine. A raw model has zero protection against adversarial input.</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#128103;</div>
+      <div class="cap-text"><strong>Hard-stop for minors</strong> &mdash; session budgets, attention limits, anti-addiction. Ollama has none.</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#128268;</div>
+      <div class="cap-text"><strong>2 GB RAM, Raspberry Pi</strong> &mdash; Ollama + Llama needs 8&ndash;32 GB. Cooper runs where families actually live.</div>
+    </div>
+  </div>
+  <p style="margin-top:16px">A raw local model is a brain without a spine. Cooper is the spine.</p>
+</section>
+
 <!-- FIVE DESIGN PRINCIPLES -->
 <section class="principles">
   <h2>Five Design Principles</h2>
@@ -436,10 +479,28 @@ footer a{color:var(--accent);text-decoration:none}
 <section>
   <h2>Why Now</h2>
   <div class="line"></div>
+  <p>In September 2026, the CEOs of Anthropic, OpenAI, and xAI publicly agreed: recursive self-improvement is real, current control mechanisms are insufficient, and the frontier must be paced.</p>
+  <p>The industry is asking the world to slow down. <strong>Cooper is the other answer:</strong> don&rsquo;t only slow the frontier &mdash; build the hearth. A brain that stays small, stays local, stays human-guided. By design, not by promise.</p>
   <p>The AI industry is building bigger. Bigger models. Bigger data centres. Bigger energy consumption. Bigger dependency on corporations that own the cloud.</p>
   <p><strong>Cooper goes the other direction.</strong> Smaller. Local. Human-dependent. Because the future of AI is not in the cloud &mdash; it is in the living room, the kitchen, the school desk, the elder&rsquo;s bedside table.</p>
   <p>3.8 billion people have a smartphone <em>(GSMA, 2025)</em>. Every one of them can have a Cooper. <strong>Not rented. Owned.</strong> Not monitored. Private. Not autonomous. Cooperative.</p>
   <p>This is the model. One brain per home. Guided by the human who lives there.</p>
+</section>
+
+<!-- VERIFIED RESEARCH -->
+<section>
+  <h2>Built on Verified Research</h2>
+  <div class="line"></div>
+  <p>Cooper is not a weekend project. It is built on published, peer-reviewable research with immutable timestamps:</p>
+  <ul class="safety-list">
+    <li><span class="s-tag">CAMP</span> Cognitive Arbitration Mediation Protocol &mdash; multi-agent governance <a href="https://doi.org/10.5281/zenodo.22682610" style="color:var(--accent)">DOI 10.5281/zenodo.22682610</a></li>
+    <li><span class="s-tag">SIGNA</span> Semantic Intent Governance &amp; Notarization Architecture <a href="https://doi.org/10.5281/zenodo.22682891" style="color:var(--accent)">DOI 10.5281/zenodo.22682891</a></li>
+    <li><span class="s-tag">KCE</span> Knowledge Continuity Engineering &mdash; knowledge preservation across system lifetimes <a href="https://doi.org/10.5281/zenodo.22667873" style="color:var(--accent)">DOI 10.5281/zenodo.22667873</a></li>
+    <li><span class="s-tag">TVE</span> 6-pillar manipulation detection &mdash; 32 automated tests <a href="https://github.com/amidigiart/tve-core" style="color:var(--accent)">GitHub</a></li>
+    <li><span class="s-tag">DSEI</span> 7 safety principles &mdash; enforced at build time, not runtime <a href="https://github.com/amidigiart/amicooperai-engine" style="color:var(--accent)">146 tests</a></li>
+    <li><span class="s-tag">Tezos</span> 182 IP assets on mainnet &mdash; immutable proof of prior art <a href="https://tzkt.io/KT1Pe2GA11bMpaTL5VH4TY6aZ9xePZ6f5vWX/storage" style="color:var(--accent)">Verify on-chain</a></li>
+  </ul>
+  <p style="margin-top:12px">Every claim has a link. Every link resolves. Every hash is on-chain.</p>
 </section>
 
 <!-- FAQ -->
