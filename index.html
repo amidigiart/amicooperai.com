@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AmiCooperAI — The Smallest Human-Guided AI Brain</title>
-<meta name="description" content="AmiCooperAI: the smallest AI brain guided by a human, designed for every home in the world. Not autonomous. Not cloud-dependent. Yours.">
+<title>Cooper — The Smallest AI Brain. Guided by a Human.</title>
+<meta name="description" content="Cooper — the smallest AI brain guided by a human. Local, private, human-guided. Runs on a Raspberry Pi or any smartphone. No cloud, no telemetry, no autonomous action. Free for personal use.">
 <meta name="author" content="Mihai Roșca">
 <link rel="canonical" href="https://amicooperai.com">
 <meta property="og:type" content="website">
-<meta property="og:title" content="AmiCooperAI — The Smallest Human-Guided AI Brain">
-<meta property="og:description" content="An AI that fits in your home, guided by you. Not autonomous. Not cloud-dependent. The smallest brain that still listens.">
+<meta property="og:title" content="Cooper — The Smallest AI Brain. Guided by a Human.">
+<meta property="og:description" content="Runs on a Raspberry Pi. Speaks 6 languages. Answers honestly. Never acts alone. Never sends your data to the cloud. The AI your family owns — not rents.">
 <meta property="og:url" content="https://amicooperai.com">
 <meta name="twitter:card" content="summary">
 
@@ -17,20 +17,45 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "AmiCooperAI",
-  "description": "The smallest human-guided AI brain for every home. Runs locally, guided by its human anchor, never autonomous.",
-  "applicationCategory": "Artificial Intelligence",
-  "operatingSystem": "Cross-platform",
+  "name": "Cooper",
+  "applicationCategory": "AIApplication",
+  "operatingSystem": "Linux, Android, Raspberry Pi OS",
+  "description": "The smallest AI brain guided by a human. Local-first, private-forever, human-guided AI assistant that runs on consumer hardware. No cloud, no telemetry, no autonomous action.",
   "url": "https://amicooperai.com",
   "author": {
     "@type": "Person",
     "name": "Mihai Roșca",
-    "url": "https://orcid.org/0009-0001-1422-6209"
+    "identifier": "https://orcid.org/0009-0001-1422-6209"
   },
+  "publisher": {
+    "@type": "Organization",
+    "name": "BRIDGRAI",
+    "url": "https://bridgrai.com"
+  },
+  "featureList": [
+    "Runs on Raspberry Pi 4 and any smartphone 2020+",
+    "≤3B parameters, ≤2GB RAM, CPU-only inference",
+    "100% local, zero telemetry",
+    "Human-initiated only (autonomy level 0)",
+    "Honest refusal — structural, not optional",
+    "6 languages: Romanian, English, Spanish, French, German, Italian",
+    "DSEI 7 principles with build-time tests",
+    "TVE 6-axis manipulation detection",
+    "Anti-addiction hard-stop for minors"
+  ],
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Personal",
+      "price": "0",
+      "priceCurrency": "EUR",
+      "description": "Free for personal and family use. Local-only, 6 languages, all safety features."
+    }
+  ],
   "isPartOf": {
     "@type": "SoftwareApplication",
     "name": "ami* / BRIDGRAI Ecosystem",
-    "url": "https://amiecosystems.com"
+    "url": "https://bridgrai.com"
   }
 }
 </script>
@@ -40,34 +65,33 @@
 :root{
   --bg:#06080c;--surface:#0c0f16;--surface2:#111520;--text:#e8eaef;--muted:#7d8290;--light:#4a4f5c;
   --core:#00e5a0;--core-dim:rgba(0,229,160,.08);--core-glow:rgba(0,229,160,.25);
-  --accent:#3d8bfd;--warm:#ffb347;
+  --accent:#3d8bfd;--warm:#ffb347;--red:#ff6b6b;
   --border:#1a1e2a;
   --font:'Segoe UI',system-ui,-apple-system,sans-serif;
   --mono:'Cascadia Code','Fira Code','SF Mono',monospace;
   --display:Georgia,'Palatino Linotype',serif;
 }
 @media(prefers-color-scheme:light){
-  :root{
+  :root:not([data-theme="dark"]){
     --bg:#f8f9fb;--surface:#ffffff;--surface2:#f0f1f4;--text:#1a1d2b;--muted:#5a5f6e;--light:#999;
     --core:#00a870;--core-dim:rgba(0,168,112,.06);--core-glow:rgba(0,168,112,.15);
-    --accent:#2d6fd4;--warm:#e89520;
+    --accent:#2d6fd4;--warm:#e89520;--red:#d94040;
     --border:#e0e2e8;
   }
 }
 :root[data-theme="dark"]{
   --bg:#06080c;--surface:#0c0f16;--surface2:#111520;--text:#e8eaef;--muted:#7d8290;--light:#4a4f5c;
   --core:#00e5a0;--core-dim:rgba(0,229,160,.08);--core-glow:rgba(0,229,160,.25);
-  --accent:#3d8bfd;--warm:#ffb347;--border:#1a1e2a;
+  --accent:#3d8bfd;--warm:#ffb347;--red:#ff6b6b;--border:#1a1e2a;
 }
 :root[data-theme="light"]{
   --bg:#f8f9fb;--surface:#ffffff;--surface2:#f0f1f4;--text:#1a1d2b;--muted:#5a5f6e;--light:#999;
   --core:#00a870;--core-dim:rgba(0,168,112,.06);--core-glow:rgba(0,168,112,.15);
-  --accent:#2d6fd4;--warm:#e89520;--border:#e0e2e8;
+  --accent:#2d6fd4;--warm:#e89520;--red:#d94040;--border:#e0e2e8;
 }
 body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
 
-/* Hero */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px;position:relative;overflow:hidden}
+.hero{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,var(--core-glow) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-55%);pointer-events:none;animation:breathe 4s ease-in-out infinite}
 @keyframes breathe{0%,100%{opacity:.3;transform:translate(-50%,-55%) scale(1)}50%{opacity:.6;transform:translate(-50%,-55%) scale(1.1)}}
 
@@ -79,48 +103,76 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .brain-dot{width:10px;height:10px;border-radius:50%;background:var(--core);box-shadow:0 0 20px var(--core-glow);position:absolute;z-index:2}
 .brain-label{position:absolute;bottom:-8px;right:-8px;font-family:var(--mono);font-size:.55rem;color:var(--core);letter-spacing:.1em;text-transform:uppercase;background:var(--bg);padding:2px 6px;border:1px solid var(--core);border-radius:2px}
 
-.hero h1{font-family:var(--display);font-size:clamp(2rem,5vw,3.2rem);font-weight:400;letter-spacing:.02em;margin-bottom:12px;position:relative;z-index:1}
+.hero h1{font-family:var(--display);font-size:clamp(2rem,5vw,3.2rem);font-weight:400;letter-spacing:.02em;margin-bottom:16px;position:relative;z-index:1}
 .hero h1 em{font-style:normal;color:var(--core)}
-.hero .tagline{font-size:clamp(.95rem,2.5vw,1.15rem);color:var(--muted);max-width:540px;position:relative;z-index:1;line-height:1.8}
+.hero .tagline{font-size:clamp(.95rem,2.5vw,1.15rem);color:var(--muted);max-width:560px;position:relative;z-index:1;line-height:1.8}
 .hero .tagline strong{color:var(--text);font-weight:600}
+.hero .status{display:inline-block;margin-top:24px;font-family:var(--mono);font-size:.72rem;color:var(--warm);border:1px solid var(--warm);padding:4px 14px;border-radius:3px;letter-spacing:.05em;position:relative;z-index:1}
 
-/* What it is */
-.what{padding:80px 24px;max-width:720px;margin:0 auto}
-.what h2{font-family:var(--display);font-size:1.4rem;font-weight:400;margin-bottom:8px}
-.what .line{width:40px;height:2px;background:var(--core);margin-bottom:28px}
-.what p{color:var(--muted);font-size:.95rem;margin-bottom:20px;line-height:1.8}
-.what p strong{color:var(--text)}
+section{padding:60px 24px;max-width:760px;margin:0 auto}
+section h2{font-family:var(--display);font-size:1.4rem;font-weight:400;margin-bottom:8px}
+.line{width:40px;height:2px;background:var(--core);margin-bottom:28px}
+section p{color:var(--muted);font-size:.95rem;margin-bottom:20px;line-height:1.8}
+section p strong{color:var(--text)}
 
-/* Principles grid */
-.principles{padding:60px 24px 80px;max-width:900px;margin:0 auto}
-.principles h2{font-family:var(--display);font-size:1.3rem;font-weight:400;text-align:center;margin-bottom:32px}
+.principles{max-width:900px}
+.principles h2{text-align:center;margin-bottom:32px}
 .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
-.pcard{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:24px;position:relative;transition:border-color .2s}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:24px;transition:border-color .2s}
 .pcard:hover{border-color:var(--core)}
 .pcard-num{font-family:var(--mono);font-size:.65rem;color:var(--core);font-weight:700;margin-bottom:8px;letter-spacing:.1em}
 .pcard-title{font-size:.95rem;font-weight:600;margin-bottom:6px;color:var(--text)}
 .pcard-desc{font-size:.82rem;color:var(--muted);line-height:1.6}
 
-/* Spec */
-.spec{padding:60px 24px;max-width:720px;margin:0 auto}
-.spec h2{font-family:var(--display);font-size:1.3rem;font-weight:400;margin-bottom:8px}
-.spec .line{width:40px;height:2px;background:var(--core);margin-bottom:28px}
-.spec-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:4px}
+.cap-item{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:6px}
+.cap-icon{font-size:1.3rem;flex-shrink:0;width:28px;text-align:center;line-height:1.6}
+.cap-text{font-size:.88rem;color:var(--muted);line-height:1.6}
+.cap-text strong{color:var(--text);font-weight:600}
+
+.limit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:4px}
+.limit-item{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:6px}
+.limit-icon{font-size:1.1rem;flex-shrink:0;width:28px;text-align:center;line-height:1.6;color:var(--red)}
+.limit-text{font-size:.88rem;color:var(--muted);line-height:1.6}
+.limit-text strong{color:var(--text);font-weight:600}
+
+.diff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:4px}
+.diff-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:20px;text-align:center}
+.diff-card .diff-label{font-family:var(--mono);font-size:.68rem;color:var(--core);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.diff-card .diff-value{font-size:.92rem;color:var(--text);font-weight:600;margin-bottom:4px}
+.diff-card .diff-note{font-size:.78rem;color:var(--muted)}
+
+.spec-table{width:100%;border-collapse:collapse;font-size:.85rem;overflow-x:auto;display:block}
 .spec-table th{text-align:left;padding:8px 12px;font-family:var(--mono);font-size:.72rem;color:var(--core);text-transform:uppercase;letter-spacing:.08em;border-bottom:2px solid var(--core)}
 .spec-table td{padding:8px 12px;border-bottom:1px solid var(--border)}
 .spec-table td:first-child{color:var(--text);font-weight:500}
 .spec-table td:last-child{color:var(--muted);font-family:var(--mono);font-size:.8rem}
 
-/* Human anchor */
-.anchor{padding:60px 24px 80px;max-width:720px;margin:0 auto}
 .anchor-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--core);border-radius:4px;padding:28px 32px}
 .anchor-box h3{font-family:var(--display);font-size:1.1rem;font-weight:400;margin-bottom:12px;color:var(--core)}
 .anchor-box p{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:12px}
 .anchor-box p:last-child{margin-bottom:0}
 .anchor-box p strong{color:var(--text)}
 
-/* CTA */
-.cta{text-align:center;padding:60px 24px 80px}
+.safety-list{list-style:none;padding:0;margin-top:4px}
+.safety-list li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border);font-size:.88rem;color:var(--muted)}
+.safety-list li:last-child{border-bottom:none}
+.safety-list .s-tag{font-family:var(--mono);font-size:.68rem;color:var(--core);background:var(--core-dim);padding:2px 8px;border-radius:3px;flex-shrink:0;min-width:64px;text-align:center}
+
+.faq-item{border-bottom:1px solid var(--border);padding:16px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-weight:600;color:var(--text);font-size:.95rem;margin-bottom:6px;cursor:pointer}
+.faq-q::before{content:'+ ';color:var(--core);font-family:var(--mono)}
+.faq-a{color:var(--muted);font-size:.88rem;line-height:1.7}
+
+.license-box{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:24px 28px;margin-top:4px}
+.license-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.license-row:last-child{border-bottom:none}
+.license-name{font-weight:600;color:var(--text);font-size:.92rem}
+.license-price{font-family:var(--mono);font-size:.85rem;color:var(--core)}
+.license-desc{font-size:.78rem;color:var(--muted);margin-top:2px}
+
+.cta{text-align:center;padding:60px 24px 80px;max-width:760px;margin:0 auto}
 .cta-text{font-family:var(--display);font-size:1.2rem;color:var(--text);margin-bottom:24px}
 .cta-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .cta-links a{font-family:var(--mono);font-size:.78rem;padding:10px 24px;border:1px solid var(--border);border-radius:4px;color:var(--muted);text-decoration:none;transition:all .15s}
@@ -128,7 +180,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .cta-links a.primary{background:var(--core);color:var(--bg);border-color:var(--core);font-weight:600}
 .cta-links a.primary:hover{background:transparent;color:var(--core)}
 
-/* Footer */
 footer{padding:40px 24px;border-top:1px solid var(--border);text-align:center}
 footer p{font-size:.72rem;color:var(--light);font-family:var(--mono);margin-bottom:4px}
 footer a{color:var(--accent);text-decoration:none}
@@ -136,8 +187,10 @@ footer a{color:var(--accent);text-decoration:none}
 @media(max-width:600px){
   .hero{min-height:auto;padding:80px 20px}
   .pgrid{grid-template-columns:1fr}
+  .cap-grid,.limit-grid,.diff-grid{grid-template-columns:1fr}
   .brain{width:80px;height:80px}
   .brain-core{width:80px;height:80px}
+  .license-row{flex-direction:column;align-items:flex-start;gap:4px}
 }
 </style>
 </head>
@@ -145,6 +198,7 @@ footer a{color:var(--accent);text-decoration:none}
 
 <main>
 
+<!-- HERO (Varianta C) -->
 <section class="hero">
   <div class="brain" aria-hidden="true">
     <div class="brain-core">
@@ -152,19 +206,129 @@ footer a{color:var(--accent);text-decoration:none}
     </div>
     <div class="brain-label">cooper</div>
   </div>
-  <h1>The <em>smallest</em> AI brain<br>guided by a human</h1>
-  <p class="tagline">Not a cloud service. Not an autonomous agent. A <strong>local model</strong> small enough to run in any home, designed to <strong>cooperate</strong> with its human &mdash; never to replace them.</p>
+  <h1>The <em>smallest</em> AI brain.<br>Guided by a human.</h1>
+  <p class="tagline">Runs on a Raspberry Pi. Speaks 6 languages. Answers honestly. Never acts alone. Never sends your data to the cloud. Cooper is the AI your family <strong>owns</strong> &mdash; not rents.</p>
+  <div class="status">In development &mdash; private beta coming 2026</div>
 </section>
 
-<section class="what">
+<!-- WHAT COOPER IS -->
+<section>
   <h2>What Cooper Is</h2>
   <div class="line"></div>
-  <p><strong>Cooper is the smallest viable AI brain.</strong> Small enough to run on a phone, a Raspberry Pi, a ten-year-old laptop. No GPU farm. No cloud dependency. No subscription required to think.</p>
-  <p>It is designed around one structural constraint: <strong>a human must guide it.</strong> Cooper does not decide. Cooper does not act autonomously. Cooper waits for its human, processes what the human asks, and returns an honest answer &mdash; or says "I don't know."</p>
-  <p>Every home that has electricity can have Cooper. Every family that has a phone can have a brain that listens, learns from its family, and <strong>stays theirs</strong> &mdash; no data leaves the house unless the family decides it should.</p>
+  <p>Cooper is a local AI assistant that runs in your home. It doesn&rsquo;t need the cloud. It doesn&rsquo;t act on its own. It waits for you &mdash; and answers honestly.</p>
+  <p>Small enough to run on a phone, a Raspberry Pi, a ten-year-old laptop. No GPU farm. No subscription required to think.</p>
+  <p>One structural constraint: <strong>a human must guide it.</strong> Cooper does not decide. Cooper does not act autonomously. Cooper waits, processes, returns an honest answer &mdash; or says &ldquo;I don&rsquo;t know.&rdquo;</p>
   <p>This is not artificial general intelligence. This is <strong>artificial cooperation.</strong></p>
 </section>
 
+<!-- WHAT COOPER CAN DO -->
+<section>
+  <h2>What Cooper Can Do</h2>
+  <div class="line"></div>
+  <div class="cap-grid">
+    <div class="cap-item">
+      <div class="cap-icon">?</div>
+      <div class="cap-text"><strong>Answer questions in 6 languages</strong> &mdash; Romanian, English, Spanish, French, German, Italian</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#128196;</div>
+      <div class="cap-text"><strong>Explain documents</strong> &mdash; bills, contracts, medical leaflets, homework assignments</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#128218;</div>
+      <div class="cap-text"><strong>Help children learn</strong> &mdash; without sending their questions to a server</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#127760;</div>
+      <div class="cap-text"><strong>Translate in real time</strong> &mdash; between any of the 6 supported languages</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#128274;</div>
+      <div class="cap-text"><strong>Keep a private family journal</strong> &mdash; conversations that never leave your house</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#128737;</div>
+      <div class="cap-text"><strong>Detect manipulation</strong> &mdash; TVE 6-axis analysis, built into the engine</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#9940;</div>
+      <div class="cap-text"><strong>Refuse when unsure</strong> &mdash; &ldquo;I don&rsquo;t know&rdquo; is a structural feature, not a bug</div>
+    </div>
+    <div class="cap-item">
+      <div class="cap-icon">&#128272;</div>
+      <div class="cap-text"><strong>Work offline</strong> &mdash; no internet required for any core function</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT COOPER CANNOT DO -->
+<section>
+  <h2>What Cooper Cannot Do</h2>
+  <div class="line"></div>
+  <p>Honesty is a design principle. Here is what Cooper will not do:</p>
+  <div class="limit-grid">
+    <div class="limit-item">
+      <div class="limit-icon">&#10005;</div>
+      <div class="limit-text"><strong>No internet access</strong> by default. Cooper does not browse, search, or fetch remote data.</div>
+    </div>
+    <div class="limit-item">
+      <div class="limit-icon">&#10005;</div>
+      <div class="limit-text"><strong>No smart home control.</strong> Cooper answers questions. It does not control devices.</div>
+    </div>
+    <div class="limit-item">
+      <div class="limit-icon">&#10005;</div>
+      <div class="limit-text"><strong>No medical, legal, or financial advice.</strong> Cooper is not a professional. It will say so.</div>
+    </div>
+    <div class="limit-item">
+      <div class="limit-icon">&#10005;</div>
+      <div class="limit-text"><strong>No cloud storage.</strong> Data stays on your device. There is no &ldquo;sync to cloud&rdquo; by default.</div>
+    </div>
+    <div class="limit-item">
+      <div class="limit-icon">&#10005;</div>
+      <div class="limit-text"><strong>No learning from other families.</strong> Your Cooper knows only what your family teaches it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- UNLIKE CLOUD AI -->
+<section>
+  <h2>Unlike Cloud AI</h2>
+  <div class="line"></div>
+  <div class="diff-grid">
+    <div class="diff-card">
+      <div class="diff-label">Location</div>
+      <div class="diff-value">Your device</div>
+      <div class="diff-note">Not a remote server</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-label">Privacy</div>
+      <div class="diff-value">Zero telemetry</div>
+      <div class="diff-note">No data leaves your house</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-label">Autonomy</div>
+      <div class="diff-value">Level 0</div>
+      <div class="diff-note">Human-initiated only</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-label">Subscription</div>
+      <div class="diff-value">Free</div>
+      <div class="diff-note">Personal use, forever</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-label">Honesty</div>
+      <div class="diff-value">Structural</div>
+      <div class="diff-note">Refuses rather than guesses</div>
+    </div>
+    <div class="diff-card">
+      <div class="diff-label">Offline</div>
+      <div class="diff-value">Full function</div>
+      <div class="diff-note">No internet needed</div>
+    </div>
+  </div>
+</section>
+
+<!-- FIVE DESIGN PRINCIPLES -->
 <section class="principles">
   <h2>Five Design Principles</h2>
   <div class="pgrid">
@@ -181,28 +345,30 @@ footer a{color:var(--accent);text-decoration:none}
     <div class="pcard">
       <div class="pcard-num">03</div>
       <div class="pcard-title">Local-First, Private-Forever</div>
-      <div class="pcard-desc">Data stays on your device. No telemetry. No cloud sync unless you choose it. Your family's conversations, questions, and patterns belong to your family.</div>
+      <div class="pcard-desc">Data stays on your device. No telemetry. No cloud sync unless you choose it. Your family&rsquo;s conversations, questions, and patterns belong to your family.</div>
     </div>
     <div class="pcard">
       <div class="pcard-num">04</div>
       <div class="pcard-title">Honest Over Capable</div>
-      <div class="pcard-desc">"I don't know" is the correct answer when the model doesn't know. Cooper refuses rather than confabulates. Being small means accepting limits &mdash; and being honest about them.</div>
+      <div class="pcard-desc">&ldquo;I don&rsquo;t know&rdquo; is the correct answer when the model doesn&rsquo;t know. Cooper refuses rather than confabulates. Being small means accepting limits &mdash; and being honest about them.</div>
     </div>
     <div class="pcard">
       <div class="pcard-num">05</div>
       <div class="pcard-title">For Every Home</div>
-      <div class="pcard-desc">Not for labs. Not for enterprises. For the grandmother in Brăila who wants to understand her electricity bill. For the child who asks "why is the sky blue?" at 11 PM.</div>
+      <div class="pcard-desc">Not for labs. Not for enterprises first. For the family that wants to understand a document. For the child who asks &ldquo;why?&rdquo; at 11 PM. For every home with electricity.</div>
     </div>
   </div>
 </section>
 
-<section class="spec">
+<!-- TECHNICAL PROFILE -->
+<section>
   <h2>Technical Profile</h2>
   <div class="line"></div>
   <table class="spec-table">
     <thead><tr><th>Parameter</th><th>Target</th></tr></thead>
     <tbody>
       <tr><td>Model size</td><td>&le; 3B parameters (quantised)</td></tr>
+      <tr><td>Model</td><td>Model-agnostic &mdash; runs any &le;3B model</td></tr>
       <tr><td>Runtime memory</td><td>&le; 2 GB RAM</td></tr>
       <tr><td>Minimum hardware</td><td>Raspberry Pi 4 / any smartphone 2020+</td></tr>
       <tr><td>Inference</td><td>CPU-only, no GPU required</td></tr>
@@ -210,15 +376,32 @@ footer a{color:var(--accent);text-decoration:none}
       <tr><td>Autonomy level</td><td>0 &mdash; human-initiated only</td></tr>
       <tr><td>Honest refusal</td><td>DSEI Principle I &mdash; structural</td></tr>
       <tr><td>Languages</td><td>Romanian, English, Spanish, French, German, Italian</td></tr>
-      <tr><td>Safety framework</td><td>DSEI 7 principles (build-time tests)</td></tr>
+      <tr><td>Engine tests</td><td>146 automated (7 modules, DSEI build-critical)</td></tr>
+      <tr><td>Safety framework</td><td>DSEI 7 principles (build-time enforced)</td></tr>
       <tr><td>Anti-addiction</td><td>Hard-stop for minors (DSEI IV)</td></tr>
       <tr><td>Manipulation detection</td><td>TVE 6-axis (DSEI VI)</td></tr>
-      <tr><td>Licence</td><td>Commercial (BRIDGRAI)</td></tr>
     </tbody>
   </table>
 </section>
 
-<section class="anchor">
+<!-- SAFETY -->
+<section>
+  <h2>Safety</h2>
+  <div class="line"></div>
+  <p>Safety is not a feature. It is the architecture.</p>
+  <ul class="safety-list">
+    <li><span class="s-tag">DSEI I</span> Human primacy &mdash; every inference requires a registered human anchor</li>
+    <li><span class="s-tag">DSEI II</span> Honest refusal &mdash; says &ldquo;I don&rsquo;t know&rdquo; rather than confabulating</li>
+    <li><span class="s-tag">DSEI III</span> Zero autonomy &mdash; no self-initiated actions, no background inference</li>
+    <li><span class="s-tag">DSEI IV</span> Privacy by architecture &mdash; no telemetry, no data leaves the device</li>
+    <li><span class="s-tag">DSEI V</span> Audit without surveillance &mdash; events logged, not persons</li>
+    <li><span class="s-tag">DSEI VI</span> Anti-addiction &mdash; hard attention budgets, session limits, TVE 6-axis detection</li>
+    <li><span class="s-tag">DSEI VII</span> Explicit human act &mdash; configuration changes require human intent</li>
+  </ul>
+</section>
+
+<!-- HUMAN ANCHOR -->
+<section>
   <div class="anchor-box">
     <h3>The Human Anchor</h3>
     <p>Every AI system in the ami* ecosystem traces back to one principle: <strong>an AI without a human anchor will lose coherence.</strong> This is not philosophy &mdash; it is a structural property of meaning.</p>
@@ -227,31 +410,93 @@ footer a{color:var(--accent);text-decoration:none}
   </div>
 </section>
 
-<section class="what" style="padding-top:20px">
+<!-- LICENCE -->
+<section>
+  <h2>Licence</h2>
+  <div class="line"></div>
+  <div class="license-box">
+    <div class="license-row">
+      <div>
+        <div class="license-name">Personal &amp; Family Use</div>
+        <div class="license-desc">Run Cooper at home, on your devices, for your family. All features. All languages. No limits.</div>
+      </div>
+      <div class="license-price">Free</div>
+    </div>
+    <div class="license-row">
+      <div>
+        <div class="license-name">Commercial / Enterprise</div>
+        <div class="license-desc">Deploy Cooper in a business, product, or service. Contact for licensing terms.</div>
+      </div>
+      <div class="license-price">Commercial</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section>
   <h2>Why Now</h2>
   <div class="line"></div>
   <p>The AI industry is building bigger. Bigger models. Bigger data centres. Bigger energy consumption. Bigger dependency on corporations that own the cloud.</p>
-  <p><strong>Cooper goes the other direction.</strong> Smaller. Local. Human-dependent. Because the future of AI is not in the cloud &mdash; it is in the living room, the kitchen, the school desk, the elder's bedside table.</p>
-  <p>3.8 billion people have a smartphone. Every one of them can have a Cooper. <strong>Not rented. Owned.</strong> Not monitored. Private. Not autonomous. Cooperative.</p>
+  <p><strong>Cooper goes the other direction.</strong> Smaller. Local. Human-dependent. Because the future of AI is not in the cloud &mdash; it is in the living room, the kitchen, the school desk, the elder&rsquo;s bedside table.</p>
+  <p>3.8 billion people have a smartphone <em>(GSMA, 2025)</em>. Every one of them can have a Cooper. <strong>Not rented. Owned.</strong> Not monitored. Private. Not autonomous. Cooperative.</p>
   <p>This is the model. One brain per home. Guided by the human who lives there.</p>
 </section>
 
+<!-- FAQ -->
+<section>
+  <h2>Questions</h2>
+  <div class="line"></div>
+  <div class="faq-item">
+    <div class="faq-q">Can I run Cooper on my phone?</div>
+    <div class="faq-a">Yes. Any smartphone from 2020 or newer with 2+ GB RAM. Android first, iOS planned.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What happens without internet?</div>
+    <div class="faq-a">Everything works. Cooper runs 100% locally. Internet is never required for any core function.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Does Cooper learn from my conversations?</div>
+    <div class="faq-a">Only on your device. Nothing is sent anywhere. Your Cooper knows only what your family teaches it.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Can I delete all data?</div>
+    <div class="faq-a">Yes. All data lives on your device. Delete the app, delete the data. No cloud backup unless you choose one.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Is Cooper safe for children?</div>
+    <div class="faq-a">Cooper has hard anti-addiction limits (DSEI IV), session budgets, and manipulation detection (TVE 6-axis). It is designed for families.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Does Cooper replace ChatGPT?</div>
+    <div class="faq-a">No. Cooper is smaller, local, and private. It trades capability for honesty, privacy, and human control. Different tool, different purpose.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What model does Cooper use?</div>
+    <div class="faq-a">Cooper is model-agnostic. It runs any open model under 3B parameters. No vendor lock-in. The engine is what matters &mdash; not the model.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">When can I try it?</div>
+    <div class="faq-a">Cooper is in active development. Private beta planned for late 2026. The engine (146 tests, DSEI 7/7) is already built.</div>
+  </div>
+</section>
+
+<!-- CTA -->
 <section class="cta">
-  <div class="cta-text">Part of the ami* ecosystem. Built by one person. For every person.</div>
+  <div class="cta-text">Part of the ami* ecosystem. Built in Europe. For every home.</div>
   <div class="cta-links">
-    <a href="https://amiecosystems.com" class="primary">ami* Ecosystem</a>
-    <a href="https://agischool.academy">Research Portfolio</a>
-    <a href="https://agischool.academy/dashboard.html">Trust Dashboard</a>
+    <a href="https://github.com/amidigiart/amicooperai-engine" class="primary">Engine on GitHub</a>
     <a href="https://bridgrai.com">BRIDGRAI</a>
-    <a href="https://github.com/amidigiart">GitHub</a>
+    <a href="https://amiecosystems.com">ami* Ecosystem</a>
+    <a href="https://agischool.academy/dashboard.html">Trust Dashboard</a>
+    <a href="https://github.com/amidigiart">All Repositories</a>
   </div>
 </section>
 
 </main>
 
 <footer>
-  <p>&copy; 2024&ndash;2026 Mihai Roșca / BRIDGRAI &mdash; All Rights Reserved</p>
-  <p>Spiru Haret &middot; Br&#259;ila &middot; Romania &nbsp;|&nbsp; <a href="mailto:mihairosca1982@gmail.com">mihairosca1982@gmail.com</a></p>
+  <p>&copy; 2024&ndash;2026 Mihai Roșca / BRIDGRAI &mdash; Free for personal use. Commercial licence available.</p>
+  <p>Built in Europe &nbsp;|&nbsp; <a href="https://orcid.org/0009-0001-1422-6209">ORCID</a> &nbsp;|&nbsp; <a href="https://github.com/amidigiart">GitHub</a> &nbsp;|&nbsp; <a href="mailto:mihairosca1982@gmail.com">Contact</a></p>
   <p style="margin-top:8px;color:var(--core)">The smallest brain that still listens.</p>
 </footer>
 
