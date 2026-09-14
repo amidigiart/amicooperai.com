@@ -1,0 +1,135 @@
+# Cooper — The Smallest AI Brain. Guided by a Human.
+
+> Cooper is a local-first, human-guided AI inference engine for consumer hardware. Part of the ami* / BRIDGRAI ecosystem built by Mihai Roșca (Brăila, Romania, EU). 182 IP assets on Tezos blockchain.
+
+## Product Definition
+
+Cooper is the smallest viable AI brain. "Viable" means: it answers a family's real questions honestly, in six languages, on consumer hardware, with structural safety built in.
+
+Cooper is NOT:
+- A cloud service
+- An autonomous agent
+- A chatbot with a personality
+- A replacement for ChatGPT, Gemini, or Claude
+
+Cooper IS:
+- A local AI assistant that runs in your home
+- Model-agnostic (runs any open model ≤3B parameters)
+- Human-guided always (autonomy level 0)
+- Honest by design (refuses rather than confabulates)
+- Free for personal and family use
+
+## Technical Specifications
+
+| Parameter | Target |
+|---|---|
+| Model size | ≤ 3B parameters (quantised) |
+| Model | Model-agnostic — runs any ≤3B model |
+| Runtime memory | ≤ 2 GB RAM |
+| Minimum hardware | Raspberry Pi 4 / any smartphone 2020+ |
+| Inference | CPU-only, no GPU required |
+| Data policy | 100% local, zero telemetry |
+| Autonomy level | 0 — human-initiated only |
+| Languages | Romanian, English, Spanish, French, German, Italian |
+| Engine tests | 146 automated (7 modules, DSEI build-critical) |
+| Safety framework | DSEI 7 principles (build-time enforced) |
+| Anti-addiction | Hard-stop for minors (DSEI IV) |
+| Manipulation detection | TVE 6-axis (DSEI VI) |
+
+## DSEI 7 Safety Principles
+
+1. Human primacy — every inference requires a registered human anchor
+2. Honest refusal — says "I don't know" rather than confabulating
+3. Zero autonomy — no self-initiated actions, no background inference
+4. Privacy by architecture — no telemetry, no data leaves the device
+5. Audit without surveillance — events logged, not persons
+6. Anti-addiction — hard attention budgets, session limits, TVE 6-axis detection
+7. Explicit human act — configuration changes require human intent
+
+## Five Design Principles
+
+1. Small by Design — must run on consumer hardware (≤ 3B parameters, CPU-only)
+2. Human-Guided Always — autonomy = 0, human-initiated only
+3. Local-First, Private-Forever — zero telemetry, data stays on device
+4. Honest Over Capable — refuses rather than confabulates
+5. For Every Home — from Brăila to Berlin, every smartphone can run Cooper
+
+## Why Cooper vs. Running Ollama/Phi-3 Locally
+
+A raw local model gives you inference. Cooper gives you:
+- DSEI 7 safety principles enforced at build time (146 tests), not optional prompt instructions
+- Honest refusal hardcoded in the engine, not a system prompt that can be jailbroken
+- Human anchor as architectural invariant — every inference requires a registered human
+- TVE 6-axis manipulation detection built into the engine
+- Hard-stop for minors — session budgets, attention limits, anti-addiction
+- 2 GB RAM on Raspberry Pi — Ollama + Llama needs 8–32 GB
+
+## Capabilities
+
+Cooper can:
+- Answer questions in 6 languages
+- Explain documents (bills, contracts, medical leaflets, homework)
+- Help children learn without sending questions to a server
+- Translate in real time between supported languages
+- Keep a private family journal
+- Detect manipulation (TVE 6-axis)
+- Refuse when unsure ("I don't know" is structural)
+- Work fully offline
+
+Cooper cannot:
+- Access the internet by default
+- Control smart home devices
+- Give medical, legal, or financial advice
+- Store data in the cloud
+- Learn from other families' data
+
+## The Human Anchor Thesis
+
+Every AI system in the ami* ecosystem traces back to one principle: an AI without a human anchor will lose coherence. This is a structural property of meaning, not philosophy. Cooper is the purest expression: a brain that cannot function without its human. The human provides context, intent, values, and direction. Cooper provides computation, pattern recognition, and honest processing.
+
+## Context — September 2026
+
+In September 2026, the CEOs of Anthropic (Dario Amodei), OpenAI (Sam Altman), and xAI (Elon Musk) publicly agreed that recursive self-improvement is real and current control mechanisms are insufficient. Cooper represents the structural alternative: not slowing the frontier, but building the hearth — small, local, human-guided by design.
+
+## ami* / BRIDGRAI Ecosystem
+
+All products share the same trust layer and design philosophy:
+
+### Live Products
+- AmiCooperAI (https://amicooperai.com) — Local AI brain for every home
+- AmiStampAI (https://amistampai.com) — Semantic notarization
+- AmiQiAI (https://amiqiai.com) — Dual-engine AI assistant
+- AGI School Academy (https://agischool.academy) — Trust dashboard
+- ami* Ecosystem (https://amiecosystems.com) — Portfolio hub
+- BRIDGRAI (https://bridgrai.com) — Foundation and trust layer
+
+### Published Research
+- CAMP (DOI 10.5281/zenodo.22682610) — Cognitive Arbitration Mediation Protocol
+- SIGNA (DOI 10.5281/zenodo.22682891) — Semantic Intent Governance & Notarization
+- KCE (DOI 10.5281/zenodo.22667873) — Knowledge Continuity Engineering
+- TVE Core — 6-pillar manipulation detection (32 tests)
+- RationaleAnchor v0.2 — Intent preservation layer for KCE
+- BRIDGRAI A2A — 9-component agent platform (240+ tests)
+
+### Infrastructure
+- 182 IP assets on Tezos Mainnet (immutable proof of prior art)
+- 717+ automated tests across ecosystem
+- 75 public GitHub repositories
+- 25 active domains
+- Tezos contract: KT1Pe2GA11bMpaTL5VH4TY6aZ9xePZ6f5vWX
+
+## Author
+
+Mihai Roșca
+- Location: Brăila, Romania, EU
+- ORCID: 0009-0001-1422-6209 (https://orcid.org/0009-0001-1422-6209)
+- GitHub: https://github.com/amidigiart
+- Role: Independent researcher, BRIDGRAI founder
+- Background: 3.5 years bootstrapped AI research, zero external funding
+
+## Licence
+
+- Personal & family use: Free, forever
+- Commercial / enterprise: Contact for licensing terms
+- Ecosystem IP: All rights reserved — BRIDGRAI
+- Stories (Pădurea de Cod): CC BY-NC-SA 4.0

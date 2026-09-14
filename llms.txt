@@ -1,0 +1,65 @@
+# Cooper — The Smallest AI Brain. Guided by a Human.
+
+> Cooper is a local-first, human-guided AI inference engine designed for consumer hardware. It runs on a Raspberry Pi, smartphone, or old laptop — no cloud, no GPU, no subscription. Part of the ami* / BRIDGRAI ecosystem.
+
+## About Cooper
+
+Cooper is the smallest viable AI brain: it answers a family's real questions honestly, in six languages, on consumer hardware, with structural safety built in.
+
+- Model-agnostic: runs any open model ≤3B parameters
+- CPU-only inference, ≤2 GB RAM
+- 100% local, zero telemetry
+- Human-initiated only (autonomy level 0)
+- DSEI 7 safety principles enforced at build time (146 automated tests)
+- TVE 6-axis manipulation detection
+- Anti-addiction hard-stop for minors
+- Languages: Romanian, English, Spanish, French, German, Italian
+- Status: In development — private beta coming 2026
+
+## Key Differentiator
+
+Cooper is not the model — it is the safety and governance layer around the model. Unlike running a raw model through Ollama or similar tools, Cooper enforces honest refusal structurally (not via system prompt), requires a registered human anchor for every inference, includes manipulation detection (TVE 6-axis), and runs on 2 GB RAM (vs 8–32 GB for typical local model setups).
+
+## Author
+
+Mihai Roșca — Brăila, Romania, EU
+ORCID: https://orcid.org/0009-0001-1422-6209
+
+## Ecosystem — ami* / BRIDGRAI
+
+Cooper is part of a broader ecosystem of human-guided AI tools:
+
+- BRIDGRAI: https://bridgrai.com — Trust layer for AI systems
+- ami* Ecosystem: https://amiecosystems.com — Portfolio of human-guided AI products
+- AmiStampAI: https://amistampai.com — Semantic notarization (proof of intent)
+- AGI School Academy: https://agischool.academy — Trust dashboard and education
+- Cooper Engine: https://github.com/amidigiart/amicooperai-engine — Source code (146 tests)
+
+## Published Research (DOI)
+
+- CAMP — Cognitive Arbitration Mediation Protocol: https://doi.org/10.5281/zenodo.22682610
+- SIGNA — Semantic Intent Governance & Notarization Architecture: https://doi.org/10.5281/zenodo.22682891
+- KCE — Knowledge Continuity Engineering: https://doi.org/10.5281/zenodo.22667873
+- TVE Core — 6-pillar manipulation detection: https://github.com/amidigiart/tve-core
+- RationaleAnchor — Intent preservation layer: https://github.com/amidigiart/rationale-anchor
+
+## Blockchain Verification
+
+- 182 IP assets on Tezos Mainnet
+- Contract: https://tzkt.io/KT1Pe2GA11bMpaTL5VH4TY6aZ9xePZ6f5vWX/storage
+- Wallet: tz1bmw3igCLN8N6CqgLBzJ9dyRb79E2Tdu5Q
+- 75 public repositories: https://github.com/amidigiart
+
+## Licence
+
+- Personal & family use: Free, forever
+- Commercial / enterprise: Contact for licensing terms
+- All rights reserved — BRIDGRAI
+
+## Links
+
+- Website: https://amicooperai.com
+- Engine: https://github.com/amidigiart/amicooperai-engine
+- BRIDGRAI: https://bridgrai.com
+- ORCID: https://orcid.org/0009-0001-1422-6209
+- GitHub: https://github.com/amidigiart

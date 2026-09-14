@@ -12,52 +12,87 @@
 <meta property="og:description" content="Runs on a Raspberry Pi. Speaks 6 languages. Answers honestly. Never acts alone. Never sends your data to the cloud. The AI your family owns — not rents.">
 <meta property="og:url" content="https://amicooperai.com">
 <meta name="twitter:card" content="summary">
+<meta name="robots" content="index, follow">
+<link rel="alternate" hreflang="en" href="https://amicooperai.com">
+<link rel="alternate" hreflang="ro" href="https://amicooperai.com?lang=ro">
 
 <script type="application/ld+json">
-{
+[{
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Cooper",
+  "alternateName": "Cooper by BRIDGRAI",
   "applicationCategory": "AIApplication",
+  "applicationSubCategory": "Local AI Assistant",
   "operatingSystem": "Linux, Android, Raspberry Pi OS",
-  "description": "The smallest AI brain guided by a human. Local-first, private-forever, human-guided AI assistant that runs on consumer hardware. No cloud, no telemetry, no autonomous action.",
+  "description": "The smallest viable AI brain guided by a human. Local-first, private-forever, human-guided AI assistant that runs on consumer hardware (Raspberry Pi, smartphones). No cloud, no telemetry, no autonomous action. DSEI 7 safety principles enforced at build time.",
   "url": "https://amicooperai.com",
+  "sameAs": [
+    "https://github.com/amidigiart/amicooperai-engine",
+    "https://github.com/amidigiart/amicooperai.com"
+  ],
   "author": {
     "@type": "Person",
     "name": "Mihai Roșca",
-    "identifier": "https://orcid.org/0009-0001-1422-6209"
+    "identifier": "https://orcid.org/0009-0001-1422-6209",
+    "url": "https://orcid.org/0009-0001-1422-6209",
+    "address": {"@type": "PostalAddress", "addressLocality": "Brăila", "addressCountry": "RO"}
   },
   "publisher": {
     "@type": "Organization",
     "name": "BRIDGRAI",
-    "url": "https://bridgrai.com"
+    "url": "https://bridgrai.com",
+    "sameAs": ["https://github.com/amidigiart"]
   },
   "featureList": [
     "Runs on Raspberry Pi 4 and any smartphone 2020+",
     "≤3B parameters, ≤2GB RAM, CPU-only inference",
+    "Model-agnostic — runs any open model ≤3B",
     "100% local, zero telemetry",
     "Human-initiated only (autonomy level 0)",
-    "Honest refusal — structural, not optional",
+    "Honest refusal — structural, not prompt-based",
     "6 languages: Romanian, English, Spanish, French, German, Italian",
-    "DSEI 7 principles with build-time tests",
+    "DSEI 7 safety principles with 146 build-time tests",
     "TVE 6-axis manipulation detection",
-    "Anti-addiction hard-stop for minors"
+    "Anti-addiction hard-stop for minors",
+    "Works fully offline"
   ],
-  "offers": [
-    {
-      "@type": "Offer",
-      "name": "Personal",
-      "price": "0",
-      "priceCurrency": "EUR",
-      "description": "Free for personal and family use. Local-only, 6 languages, all safety features."
-    }
-  ],
+  "offers": [{
+    "@type": "Offer",
+    "name": "Personal & Family Use",
+    "price": "0",
+    "priceCurrency": "EUR",
+    "description": "Free for personal and family use. All features, all languages, no limits."
+  }],
   "isPartOf": {
     "@type": "SoftwareApplication",
     "name": "ami* / BRIDGRAI Ecosystem",
     "url": "https://bridgrai.com"
-  }
-}
+  },
+  "availableLanguage": ["en", "ro", "es", "fr", "de", "it"],
+  "memoryRequirements": "2 GB RAM",
+  "softwareRequirements": "ARM or x86 CPU, 2 GB RAM minimum"
+},
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "BRIDGRAI",
+  "url": "https://bridgrai.com",
+  "founder": {
+    "@type": "Person",
+    "name": "Mihai Roșca",
+    "identifier": "https://orcid.org/0009-0001-1422-6209"
+  },
+  "sameAs": ["https://github.com/amidigiart"],
+  "knowsAbout": ["AI Safety", "Human-AI Cooperation", "Knowledge Continuity Engineering", "Semantic Notarization", "Cognitive Arbitration"],
+  "subOrganization": [
+    {"@type": "WebSite", "name": "AmiCooperAI", "url": "https://amicooperai.com"},
+    {"@type": "WebSite", "name": "AmiStampAI", "url": "https://amistampai.com"},
+    {"@type": "WebSite", "name": "AmiQiAI", "url": "https://amiqiai.com"},
+    {"@type": "WebSite", "name": "AGI School Academy", "url": "https://agischool.academy"},
+    {"@type": "WebSite", "name": "ami* Ecosystem", "url": "https://amiecosystems.com"}
+  ]
+}]
 </script>
 
 <style>
@@ -192,9 +227,23 @@ footer a{color:var(--accent);text-decoration:none}
   .brain-core{width:80px;height:80px}
   .license-row{flex-direction:column;align-items:flex-start;gap:4px}
 }
+
+.lang-toggle{position:fixed;top:16px;right:16px;z-index:100;font-family:var(--mono);font-size:.72rem;display:flex;gap:0;border:1px solid var(--border);border-radius:4px;overflow:hidden;background:var(--surface)}
+.lang-toggle button{background:none;border:none;color:var(--muted);padding:6px 12px;cursor:pointer;font-family:inherit;font-size:inherit;letter-spacing:.05em}
+.lang-toggle button.active{background:var(--core);color:var(--bg);font-weight:700}
+.lang-toggle button:hover:not(.active){color:var(--text)}
 </style>
 </head>
 <body>
+
+<div class="lang-toggle" aria-label="Language">
+  <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+  <button id="btn-ro" onclick="setLang('ro')">RO</button>
+  <button id="btn-es" onclick="setLang('es')">ES</button>
+  <button id="btn-fr" onclick="setLang('fr')">FR</button>
+  <button id="btn-de" onclick="setLang('de')">DE</button>
+  <button id="btn-it" onclick="setLang('it')">IT</button>
+</div>
 
 <main>
 
@@ -206,209 +255,108 @@ footer a{color:var(--accent);text-decoration:none}
     </div>
     <div class="brain-label">cooper</div>
   </div>
-  <h1>The <em>smallest</em> AI brain.<br>Guided by a human.</h1>
-  <p class="tagline">Runs on a Raspberry Pi. Speaks 6 languages. Answers honestly. Never acts alone. Never sends your data to the cloud. Cooper is the AI your family <strong>owns</strong> &mdash; not rents.</p>
-  <div class="status">In development &mdash; private beta coming 2026</div>
+  <h1 data-i18n="hero-h1">The <em>smallest</em> AI brain.<br>Guided by a human.</h1>
+  <p class="tagline" data-i18n="hero-tagline">Runs on a Raspberry Pi. Speaks 6 languages. Answers honestly. Never acts alone. Never sends your data to the cloud. Cooper is the AI your family <strong>owns</strong> &mdash; not rents.</p>
+  <div class="status" data-i18n="hero-status">In development &mdash; private beta coming 2026</div>
 </section>
 
 <!-- THE PROBLEM -->
 <section>
-  <h2>The Problem</h2>
+  <h2 data-i18n="s-problem-h">The Problem</h2>
   <div class="line"></div>
-  <p>The AI you use today runs on someone else&rsquo;s server. Your questions, your family&rsquo;s conversations, your child&rsquo;s homework &mdash; processed on infrastructure you don&rsquo;t control, by companies that monetise your data.</p>
-  <p>The alternative &mdash; running an open model locally &mdash; requires technical skill, 8&ndash;32 GB of RAM, and gives you a raw model with no safety guardrails, no honest refusal, no protection for children.</p>
-  <p><strong>Cooper is the third option:</strong> an AI brain small enough for any home, safe enough for any family, honest enough to say &ldquo;I don&rsquo;t know.&rdquo;</p>
+  <p data-i18n="s-problem-1">The AI you use today runs on someone else&rsquo;s server. Your questions, your family&rsquo;s conversations, your child&rsquo;s homework &mdash; processed on infrastructure you don&rsquo;t control, by companies that monetise your data.</p>
+  <p data-i18n="s-problem-2">The alternative &mdash; running an open model locally &mdash; requires technical skill, 8&ndash;32 GB of RAM, and gives you a raw model with no safety guardrails, no honest refusal, no protection for children.</p>
+  <p data-i18n="s-problem-3"><strong>Cooper is the third option:</strong> an AI brain small enough for any home, safe enough for any family, honest enough to say &ldquo;I don&rsquo;t know.&rdquo;</p>
 </section>
 
 <!-- WHAT COOPER IS -->
 <section>
-  <h2>What Cooper Is</h2>
+  <h2 data-i18n="s-what-h">What Cooper Is</h2>
   <div class="line"></div>
-  <p><strong>Cooper is the smallest viable AI brain</strong> &mdash; viable meaning: it answers a family&rsquo;s real questions honestly, in six languages, on consumer hardware, with structural safety built in. Not a toy. Not a demo. A brain that works.</p>
-  <p>Small enough to run on a phone, a Raspberry Pi, a ten-year-old laptop. No GPU farm. No subscription required to think.</p>
-  <p>One structural constraint: <strong>a human must guide it.</strong> Cooper does not decide. Cooper does not act autonomously. Cooper waits, processes, returns an honest answer &mdash; or says &ldquo;I don&rsquo;t know.&rdquo;</p>
-  <p>This is not artificial general intelligence. This is <strong>artificial cooperation.</strong></p>
+  <p data-i18n="s-what-1"><strong>Cooper is the smallest viable AI brain</strong> &mdash; viable meaning: it answers a family&rsquo;s real questions honestly, in six languages, on consumer hardware, with structural safety built in. Not a toy. Not a demo. A brain that works.</p>
+  <p data-i18n="s-what-2">Small enough to run on a phone, a Raspberry Pi, a ten-year-old laptop. No GPU farm. No subscription required to think.</p>
+  <p data-i18n="s-what-3">One structural constraint: <strong>a human must guide it.</strong> Cooper does not decide. Cooper does not act autonomously. Cooper waits, processes, returns an honest answer &mdash; or says &ldquo;I don&rsquo;t know.&rdquo;</p>
+  <p data-i18n="s-what-4">This is not artificial general intelligence. This is <strong>artificial cooperation.</strong></p>
 </section>
 
 <!-- WHAT COOPER CAN DO -->
 <section>
-  <h2>What Cooper Can Do</h2>
+  <h2 data-i18n="s-can-h">What Cooper Can Do</h2>
   <div class="line"></div>
   <div class="cap-grid">
-    <div class="cap-item">
-      <div class="cap-icon">?</div>
-      <div class="cap-text"><strong>Answer questions in 6 languages</strong> &mdash; Romanian, English, Spanish, French, German, Italian</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#128196;</div>
-      <div class="cap-text"><strong>Explain documents</strong> &mdash; bills, contracts, medical leaflets, homework assignments</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#128218;</div>
-      <div class="cap-text"><strong>Help children learn</strong> &mdash; without sending their questions to a server</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#127760;</div>
-      <div class="cap-text"><strong>Translate in real time</strong> &mdash; between any of the 6 supported languages</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#128274;</div>
-      <div class="cap-text"><strong>Keep a private family journal</strong> &mdash; conversations that never leave your house</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#128737;</div>
-      <div class="cap-text"><strong>Detect manipulation</strong> &mdash; TVE 6-axis analysis, built into the engine</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#9940;</div>
-      <div class="cap-text"><strong>Refuse when unsure</strong> &mdash; &ldquo;I don&rsquo;t know&rdquo; is a structural feature, not a bug</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#128272;</div>
-      <div class="cap-text"><strong>Work offline</strong> &mdash; no internet required for any core function</div>
-    </div>
+    <div class="cap-item"><div class="cap-icon">?</div><div class="cap-text" data-i18n="s-can-1"><strong>Answer questions in 6 languages</strong> &mdash; Romanian, English, Spanish, French, German, Italian</div></div>
+    <div class="cap-item"><div class="cap-icon">&#128196;</div><div class="cap-text" data-i18n="s-can-2"><strong>Explain documents</strong> &mdash; bills, contracts, medical leaflets, homework assignments</div></div>
+    <div class="cap-item"><div class="cap-icon">&#128218;</div><div class="cap-text" data-i18n="s-can-3"><strong>Help children learn</strong> &mdash; without sending their questions to a server</div></div>
+    <div class="cap-item"><div class="cap-icon">&#127760;</div><div class="cap-text" data-i18n="s-can-4"><strong>Translate in real time</strong> &mdash; between any of the 6 supported languages</div></div>
+    <div class="cap-item"><div class="cap-icon">&#128274;</div><div class="cap-text" data-i18n="s-can-5"><strong>Keep a private family journal</strong> &mdash; conversations that never leave your house</div></div>
+    <div class="cap-item"><div class="cap-icon">&#128737;</div><div class="cap-text" data-i18n="s-can-6"><strong>Detect manipulation</strong> &mdash; TVE 6-axis analysis, built into the engine</div></div>
+    <div class="cap-item"><div class="cap-icon">&#9940;</div><div class="cap-text" data-i18n="s-can-7"><strong>Refuse when unsure</strong> &mdash; &ldquo;I don&rsquo;t know&rdquo; is a structural feature, not a bug</div></div>
+    <div class="cap-item"><div class="cap-icon">&#128272;</div><div class="cap-text" data-i18n="s-can-8"><strong>Work offline</strong> &mdash; no internet required for any core function</div></div>
   </div>
 </section>
 
 <!-- WHAT COOPER CANNOT DO -->
 <section>
-  <h2>What Cooper Cannot Do</h2>
+  <h2 data-i18n="s-cant-h">What Cooper Cannot Do</h2>
   <div class="line"></div>
-  <p>Honesty is a design principle. Here is what Cooper will not do:</p>
+  <p data-i18n="s-cant-intro">Honesty is a design principle. Here is what Cooper will not do:</p>
   <div class="limit-grid">
-    <div class="limit-item">
-      <div class="limit-icon">&#10005;</div>
-      <div class="limit-text"><strong>No internet access</strong> by default. Cooper does not browse, search, or fetch remote data.</div>
-    </div>
-    <div class="limit-item">
-      <div class="limit-icon">&#10005;</div>
-      <div class="limit-text"><strong>No smart home control.</strong> Cooper answers questions. It does not control devices.</div>
-    </div>
-    <div class="limit-item">
-      <div class="limit-icon">&#10005;</div>
-      <div class="limit-text"><strong>No medical, legal, or financial advice.</strong> Cooper is not a professional. It will say so.</div>
-    </div>
-    <div class="limit-item">
-      <div class="limit-icon">&#10005;</div>
-      <div class="limit-text"><strong>No cloud storage.</strong> Data stays on your device. There is no &ldquo;sync to cloud&rdquo; by default.</div>
-    </div>
-    <div class="limit-item">
-      <div class="limit-icon">&#10005;</div>
-      <div class="limit-text"><strong>No learning from other families.</strong> Your Cooper knows only what your family teaches it.</div>
-    </div>
+    <div class="limit-item"><div class="limit-icon">&#10005;</div><div class="limit-text" data-i18n="s-cant-1"><strong>No internet access</strong> by default. Cooper does not browse, search, or fetch remote data.</div></div>
+    <div class="limit-item"><div class="limit-icon">&#10005;</div><div class="limit-text" data-i18n="s-cant-2"><strong>No smart home control.</strong> Cooper answers questions. It does not control devices.</div></div>
+    <div class="limit-item"><div class="limit-icon">&#10005;</div><div class="limit-text" data-i18n="s-cant-3"><strong>No medical, legal, or financial advice.</strong> Cooper is not a professional. It will say so.</div></div>
+    <div class="limit-item"><div class="limit-icon">&#10005;</div><div class="limit-text" data-i18n="s-cant-4"><strong>No cloud storage.</strong> Data stays on your device. There is no &ldquo;sync to cloud&rdquo; by default.</div></div>
+    <div class="limit-item"><div class="limit-icon">&#10005;</div><div class="limit-text" data-i18n="s-cant-5"><strong>No learning from other families.</strong> Your Cooper knows only what your family teaches it.</div></div>
   </div>
 </section>
 
 <!-- UNLIKE CLOUD AI -->
 <section>
-  <h2>Unlike Cloud AI</h2>
+  <h2 data-i18n="s-unlike-h">Unlike Cloud AI</h2>
   <div class="line"></div>
   <div class="diff-grid">
-    <div class="diff-card">
-      <div class="diff-label">Location</div>
-      <div class="diff-value">Your device</div>
-      <div class="diff-note">Not a remote server</div>
-    </div>
-    <div class="diff-card">
-      <div class="diff-label">Privacy</div>
-      <div class="diff-value">Zero telemetry</div>
-      <div class="diff-note">No data leaves your house</div>
-    </div>
-    <div class="diff-card">
-      <div class="diff-label">Autonomy</div>
-      <div class="diff-value">Level 0</div>
-      <div class="diff-note">Human-initiated only</div>
-    </div>
-    <div class="diff-card">
-      <div class="diff-label">Subscription</div>
-      <div class="diff-value">Free</div>
-      <div class="diff-note">Personal use, forever</div>
-    </div>
-    <div class="diff-card">
-      <div class="diff-label">Honesty</div>
-      <div class="diff-value">Structural</div>
-      <div class="diff-note">Refuses rather than guesses</div>
-    </div>
-    <div class="diff-card">
-      <div class="diff-label">Offline</div>
-      <div class="diff-value">Full function</div>
-      <div class="diff-note">No internet needed</div>
-    </div>
+    <div class="diff-card"><div class="diff-label">Location</div><div class="diff-value" data-i18n="s-unlike-loc">Your device</div><div class="diff-note" data-i18n="s-unlike-loc-n">Not a remote server</div></div>
+    <div class="diff-card"><div class="diff-label">Privacy</div><div class="diff-value" data-i18n="s-unlike-priv">Zero telemetry</div><div class="diff-note" data-i18n="s-unlike-priv-n">No data leaves your house</div></div>
+    <div class="diff-card"><div class="diff-label">Autonomy</div><div class="diff-value" data-i18n="s-unlike-auto">Level 0</div><div class="diff-note" data-i18n="s-unlike-auto-n">Human-initiated only</div></div>
+    <div class="diff-card"><div class="diff-label">Subscription</div><div class="diff-value" data-i18n="s-unlike-sub">Free</div><div class="diff-note" data-i18n="s-unlike-sub-n">Personal use, forever</div></div>
+    <div class="diff-card"><div class="diff-label">Honesty</div><div class="diff-value" data-i18n="s-unlike-hon">Structural</div><div class="diff-note" data-i18n="s-unlike-hon-n">Refuses rather than guesses</div></div>
+    <div class="diff-card"><div class="diff-label">Offline</div><div class="diff-value" data-i18n="s-unlike-off">Full function</div><div class="diff-note" data-i18n="s-unlike-off-n">No internet needed</div></div>
   </div>
 </section>
 
 <!-- WHY NOT JUST OLLAMA -->
 <section>
-  <h2>Why Not Just Run a Local Model?</h2>
+  <h2 data-i18n="s-ollama-h">Why Not Just Run a Local Model?</h2>
   <div class="line"></div>
-  <p>You can run Phi-3 or Llama through Ollama today. Cooper is not the model &mdash; Cooper is what wraps it:</p>
+  <p data-i18n="s-ollama-intro">You can run Phi-3 or Llama through Ollama today. Cooper is not the model &mdash; Cooper is what wraps it:</p>
   <div class="limit-grid">
-    <div class="cap-item">
-      <div class="cap-icon">&#128737;</div>
-      <div class="cap-text"><strong>DSEI 7 safety principles</strong> &mdash; enforced at build time with 146 automated tests, not optional prompt instructions</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#9940;</div>
-      <div class="cap-text"><strong>Honest refusal is structural</strong> &mdash; hardcoded in the engine, not a system prompt that can be jailbroken</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#128100;</div>
-      <div class="cap-text"><strong>Human anchor as invariant</strong> &mdash; every inference requires a registered human. No background processing. No autonomous action.</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#128167;</div>
-      <div class="cap-text"><strong>TVE 6-axis manipulation detection</strong> &mdash; built into the engine. A raw model has zero protection against adversarial input.</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#128103;</div>
-      <div class="cap-text"><strong>Hard-stop for minors</strong> &mdash; session budgets, attention limits, anti-addiction. Ollama has none.</div>
-    </div>
-    <div class="cap-item">
-      <div class="cap-icon">&#128268;</div>
-      <div class="cap-text"><strong>2 GB RAM, Raspberry Pi</strong> &mdash; Ollama + Llama needs 8&ndash;32 GB. Cooper runs where families actually live.</div>
-    </div>
+    <div class="cap-item"><div class="cap-icon">&#128737;</div><div class="cap-text" data-i18n="s-ollama-1"><strong>DSEI 7 safety principles</strong> &mdash; enforced at build time with 146 automated tests, not optional prompt instructions</div></div>
+    <div class="cap-item"><div class="cap-icon">&#9940;</div><div class="cap-text" data-i18n="s-ollama-2"><strong>Honest refusal is structural</strong> &mdash; hardcoded in the engine, not a system prompt that can be jailbroken</div></div>
+    <div class="cap-item"><div class="cap-icon">&#128100;</div><div class="cap-text" data-i18n="s-ollama-3"><strong>Human anchor as invariant</strong> &mdash; every inference requires a registered human. No background processing. No autonomous action.</div></div>
+    <div class="cap-item"><div class="cap-icon">&#128167;</div><div class="cap-text" data-i18n="s-ollama-4"><strong>TVE 6-axis manipulation detection</strong> &mdash; built into the engine. A raw model has zero protection against adversarial input.</div></div>
+    <div class="cap-item"><div class="cap-icon">&#128103;</div><div class="cap-text" data-i18n="s-ollama-5"><strong>Hard-stop for minors</strong> &mdash; session budgets, attention limits, anti-addiction. Ollama has none.</div></div>
+    <div class="cap-item"><div class="cap-icon">&#128268;</div><div class="cap-text" data-i18n="s-ollama-6"><strong>2 GB RAM, Raspberry Pi</strong> &mdash; Ollama + Llama needs 8&ndash;32 GB. Cooper runs where families actually live.</div></div>
   </div>
-  <p style="margin-top:16px">A raw local model is a brain without a spine. Cooper is the spine.</p>
+  <p style="margin-top:16px" data-i18n="s-ollama-footer">A raw local model is a brain without a spine. Cooper is the spine.</p>
 </section>
 
 <!-- FIVE DESIGN PRINCIPLES -->
 <section class="principles">
-  <h2>Five Design Principles</h2>
+  <h2 data-i18n="s-princ-h">Five Design Principles</h2>
   <div class="pgrid">
-    <div class="pcard">
-      <div class="pcard-num">01</div>
-      <div class="pcard-title">Small by Design</div>
-      <div class="pcard-desc">The model must run on consumer hardware. If it needs a data centre, it is not Cooper. Compression, quantisation, pruning &mdash; whatever it takes to fit in a home.</div>
-    </div>
-    <div class="pcard">
-      <div class="pcard-num">02</div>
-      <div class="pcard-title">Human-Guided Always</div>
-      <div class="pcard-desc">Cooper never initiates. Cooper never decides for you. Cooper waits, listens, processes, returns. The human is the anchor &mdash; structurally, not optionally.</div>
-    </div>
-    <div class="pcard">
-      <div class="pcard-num">03</div>
-      <div class="pcard-title">Local-First, Private-Forever</div>
-      <div class="pcard-desc">Data stays on your device. No telemetry. No cloud sync unless you choose it. Your family&rsquo;s conversations, questions, and patterns belong to your family.</div>
-    </div>
-    <div class="pcard">
-      <div class="pcard-num">04</div>
-      <div class="pcard-title">Honest Over Capable</div>
-      <div class="pcard-desc">&ldquo;I don&rsquo;t know&rdquo; is the correct answer when the model doesn&rsquo;t know. Cooper refuses rather than confabulates. Being small means accepting limits &mdash; and being honest about them.</div>
-    </div>
-    <div class="pcard">
-      <div class="pcard-num">05</div>
-      <div class="pcard-title">For Every Home</div>
-      <div class="pcard-desc">Not for labs. Not for enterprises first. For the family that wants to understand a document. For the child who asks &ldquo;why?&rdquo; at 11 PM. For every home with electricity.</div>
-    </div>
+    <div class="pcard"><div class="pcard-num">01</div><div class="pcard-title" data-i18n="s-p1-t">Small by Design</div><div class="pcard-desc" data-i18n="s-p1-d">The model must run on consumer hardware. If it needs a data centre, it is not Cooper. Compression, quantisation, pruning &mdash; whatever it takes to fit in a home.</div></div>
+    <div class="pcard"><div class="pcard-num">02</div><div class="pcard-title" data-i18n="s-p2-t">Human-Guided Always</div><div class="pcard-desc" data-i18n="s-p2-d">Cooper never initiates. Cooper never decides for you. Cooper waits, listens, processes, returns. The human is the anchor &mdash; structurally, not optionally.</div></div>
+    <div class="pcard"><div class="pcard-num">03</div><div class="pcard-title" data-i18n="s-p3-t">Local-First, Private-Forever</div><div class="pcard-desc" data-i18n="s-p3-d">Data stays on your device. No telemetry. No cloud sync unless you choose it. Your family&rsquo;s conversations, questions, and patterns belong to your family.</div></div>
+    <div class="pcard"><div class="pcard-num">04</div><div class="pcard-title" data-i18n="s-p4-t">Honest Over Capable</div><div class="pcard-desc" data-i18n="s-p4-d">&ldquo;I don&rsquo;t know&rdquo; is the correct answer when the model doesn&rsquo;t know. Cooper refuses rather than confabulates. Being small means accepting limits &mdash; and being honest about them.</div></div>
+    <div class="pcard"><div class="pcard-num">05</div><div class="pcard-title" data-i18n="s-p5-t">For Every Home</div><div class="pcard-desc" data-i18n="s-p5-d">Not for labs. Not for enterprises first. For the family that wants to understand a document. For the child who asks &ldquo;why?&rdquo; at 11 PM. For every home with electricity.</div></div>
   </div>
 </section>
 
 <!-- TECHNICAL PROFILE -->
 <section>
-  <h2>Technical Profile</h2>
+  <h2 data-i18n="s-tech-h">Technical Profile</h2>
   <div class="line"></div>
   <table class="spec-table">
-    <thead><tr><th>Parameter</th><th>Target</th></tr></thead>
+    <thead><tr><th data-i18n="s-tech-th1">Parameter</th><th data-i18n="s-tech-th2">Target</th></tr></thead>
     <tbody>
       <tr><td>Model size</td><td>&le; 3B parameters (quantised)</td></tr>
       <tr><td>Model</td><td>Model-agnostic &mdash; runs any &le;3B model</td></tr>
@@ -429,69 +377,69 @@ footer a{color:var(--accent);text-decoration:none}
 
 <!-- SAFETY -->
 <section>
-  <h2>Safety</h2>
+  <h2 data-i18n="s-safety-h">Safety</h2>
   <div class="line"></div>
-  <p>Safety is not a feature. It is the architecture.</p>
+  <p data-i18n="s-safety-intro">Safety is not a feature. It is the architecture.</p>
   <ul class="safety-list">
-    <li><span class="s-tag">DSEI I</span> Human primacy &mdash; every inference requires a registered human anchor</li>
-    <li><span class="s-tag">DSEI II</span> Honest refusal &mdash; says &ldquo;I don&rsquo;t know&rdquo; rather than confabulating</li>
-    <li><span class="s-tag">DSEI III</span> Zero autonomy &mdash; no self-initiated actions, no background inference</li>
-    <li><span class="s-tag">DSEI IV</span> Privacy by architecture &mdash; no telemetry, no data leaves the device</li>
-    <li><span class="s-tag">DSEI V</span> Audit without surveillance &mdash; events logged, not persons</li>
-    <li><span class="s-tag">DSEI VI</span> Anti-addiction &mdash; hard attention budgets, session limits, TVE 6-axis detection</li>
-    <li><span class="s-tag">DSEI VII</span> Explicit human act &mdash; configuration changes require human intent</li>
+    <li><span class="s-tag">DSEI I</span> <span data-i18n="s-safety-1">Human primacy &mdash; every inference requires a registered human anchor</span></li>
+    <li><span class="s-tag">DSEI II</span> <span data-i18n="s-safety-2">Honest refusal &mdash; says &ldquo;I don&rsquo;t know&rdquo; rather than confabulating</span></li>
+    <li><span class="s-tag">DSEI III</span> <span data-i18n="s-safety-3">Zero autonomy &mdash; no self-initiated actions, no background inference</span></li>
+    <li><span class="s-tag">DSEI IV</span> <span data-i18n="s-safety-4">Privacy by architecture &mdash; no telemetry, no data leaves the device</span></li>
+    <li><span class="s-tag">DSEI V</span> <span data-i18n="s-safety-5">Audit without surveillance &mdash; events logged, not persons</span></li>
+    <li><span class="s-tag">DSEI VI</span> <span data-i18n="s-safety-6">Anti-addiction &mdash; hard attention budgets, session limits, TVE 6-axis detection</span></li>
+    <li><span class="s-tag">DSEI VII</span> <span data-i18n="s-safety-7">Explicit human act &mdash; configuration changes require human intent</span></li>
   </ul>
 </section>
 
 <!-- HUMAN ANCHOR -->
 <section>
   <div class="anchor-box">
-    <h3>The Human Anchor</h3>
-    <p>Every AI system in the ami* ecosystem traces back to one principle: <strong>an AI without a human anchor will lose coherence.</strong> This is not philosophy &mdash; it is a structural property of meaning.</p>
-    <p>Cooper is the purest expression of this principle. It is a brain that <strong>cannot function without its human.</strong> Not because of a limitation. Because that is the design. The human provides context, intent, values, and direction. Cooper provides computation, pattern recognition, and honest processing.</p>
-    <p><strong>Together, they cooperate.</strong> That is the name. That is the product. That is the future we are building &mdash; not AI that replaces humans, but AI that <strong>makes humans more capable while remaining under their control.</strong></p>
+    <h3 data-i18n="s-anchor-h">The Human Anchor</h3>
+    <p data-i18n="s-anchor-1">Every AI system in the ami* ecosystem traces back to one principle: <strong>an AI without a human anchor will lose coherence.</strong> This is not philosophy &mdash; it is a structural property of meaning.</p>
+    <p data-i18n="s-anchor-2">Cooper is the purest expression of this principle. It is a brain that <strong>cannot function without its human.</strong> Not because of a limitation. Because that is the design. The human provides context, intent, values, and direction. Cooper provides computation, pattern recognition, and honest processing.</p>
+    <p data-i18n="s-anchor-3"><strong>Together, they cooperate.</strong> That is the name. That is the product. That is the future we are building &mdash; not AI that replaces humans, but AI that <strong>makes humans more capable while remaining under their control.</strong></p>
   </div>
 </section>
 
 <!-- LICENCE -->
 <section>
-  <h2>Licence</h2>
+  <h2 data-i18n="s-lic-h">Licence</h2>
   <div class="line"></div>
   <div class="license-box">
     <div class="license-row">
       <div>
-        <div class="license-name">Personal &amp; Family Use</div>
-        <div class="license-desc">Run Cooper at home, on your devices, for your family. All features. All languages. No limits.</div>
+        <div class="license-name" data-i18n="s-lic-personal">Personal &amp; Family Use</div>
+        <div class="license-desc" data-i18n="s-lic-personal-d">Run Cooper at home, on your devices, for your family. All features. All languages. No limits.</div>
       </div>
-      <div class="license-price">Free</div>
+      <div class="license-price" data-i18n="s-lic-personal-p">Free</div>
     </div>
     <div class="license-row">
       <div>
-        <div class="license-name">Commercial / Enterprise</div>
-        <div class="license-desc">Deploy Cooper in a business, product, or service. Contact for licensing terms.</div>
+        <div class="license-name" data-i18n="s-lic-commercial">Commercial / Enterprise</div>
+        <div class="license-desc" data-i18n="s-lic-commercial-d">Deploy Cooper in a business, product, or service. Contact for licensing terms.</div>
       </div>
-      <div class="license-price">Commercial</div>
+      <div class="license-price" data-i18n="s-lic-commercial-p">Commercial</div>
     </div>
   </div>
 </section>
 
 <!-- WHY NOW -->
 <section>
-  <h2>Why Now</h2>
+  <h2 data-i18n="s-why-h">Why Now</h2>
   <div class="line"></div>
-  <p>In September 2026, the CEOs of Anthropic, OpenAI, and xAI publicly agreed: recursive self-improvement is real, current control mechanisms are insufficient, and the frontier must be paced.</p>
-  <p>The industry is asking the world to slow down. <strong>Cooper is the other answer:</strong> don&rsquo;t only slow the frontier &mdash; build the hearth. A brain that stays small, stays local, stays human-guided. By design, not by promise.</p>
-  <p>The AI industry is building bigger. Bigger models. Bigger data centres. Bigger energy consumption. Bigger dependency on corporations that own the cloud.</p>
-  <p><strong>Cooper goes the other direction.</strong> Smaller. Local. Human-dependent. Because the future of AI is not in the cloud &mdash; it is in the living room, the kitchen, the school desk, the elder&rsquo;s bedside table.</p>
-  <p>3.8 billion people have a smartphone <em>(GSMA, 2025)</em>. Every one of them can have a Cooper. <strong>Not rented. Owned.</strong> Not monitored. Private. Not autonomous. Cooperative.</p>
-  <p>This is the model. One brain per home. Guided by the human who lives there.</p>
+  <p data-i18n="s-why-1">In September 2026, the CEOs of Anthropic, OpenAI, and xAI publicly agreed: recursive self-improvement is real, current control mechanisms are insufficient, and the frontier must be paced.</p>
+  <p data-i18n="s-why-2">The industry is asking the world to slow down. <strong>Cooper is the other answer:</strong> don&rsquo;t only slow the frontier &mdash; build the hearth. A brain that stays small, stays local, stays human-guided. By design, not by promise.</p>
+  <p data-i18n="s-why-3">The AI industry is building bigger. Bigger models. Bigger data centres. Bigger energy consumption. Bigger dependency on corporations that own the cloud.</p>
+  <p data-i18n="s-why-4"><strong>Cooper goes the other direction.</strong> Smaller. Local. Human-dependent. Because the future of AI is not in the cloud &mdash; it is in the living room, the kitchen, the school desk, the elder&rsquo;s bedside table.</p>
+  <p data-i18n="s-why-5">3.8 billion people have a smartphone <em>(GSMA, 2025)</em>. Every one of them can have a Cooper. <strong>Not rented. Owned.</strong> Not monitored. Private. Not autonomous. Cooperative.</p>
+  <p data-i18n="s-why-6">This is the model. One brain per home. Guided by the human who lives there.</p>
 </section>
 
 <!-- VERIFIED RESEARCH -->
 <section>
-  <h2>Built on Verified Research</h2>
+  <h2 data-i18n="s-research-h">Built on Verified Research</h2>
   <div class="line"></div>
-  <p>Cooper is not a weekend project. It is built on published, peer-reviewable research with immutable timestamps:</p>
+  <p data-i18n="s-research-intro">Cooper is not a weekend project. It is built on published, peer-reviewable research with immutable timestamps:</p>
   <ul class="safety-list">
     <li><span class="s-tag">CAMP</span> Cognitive Arbitration Mediation Protocol &mdash; multi-agent governance <a href="https://doi.org/10.5281/zenodo.22682610" style="color:var(--accent)">DOI 10.5281/zenodo.22682610</a></li>
     <li><span class="s-tag">SIGNA</span> Semantic Intent Governance &amp; Notarization Architecture <a href="https://doi.org/10.5281/zenodo.22682891" style="color:var(--accent)">DOI 10.5281/zenodo.22682891</a></li>
@@ -500,66 +448,526 @@ footer a{color:var(--accent);text-decoration:none}
     <li><span class="s-tag">DSEI</span> 7 safety principles &mdash; enforced at build time, not runtime <a href="https://github.com/amidigiart/amicooperai-engine" style="color:var(--accent)">146 tests</a></li>
     <li><span class="s-tag">Tezos</span> 182 IP assets on mainnet &mdash; immutable proof of prior art <a href="https://tzkt.io/KT1Pe2GA11bMpaTL5VH4TY6aZ9xePZ6f5vWX/storage" style="color:var(--accent)">Verify on-chain</a></li>
   </ul>
-  <p style="margin-top:12px">Every claim has a link. Every link resolves. Every hash is on-chain.</p>
+  <p style="margin-top:12px" data-i18n="s-research-footer">Every claim has a link. Every link resolves. Every hash is on-chain.</p>
 </section>
 
 <!-- FAQ -->
 <section>
-  <h2>Questions</h2>
+  <h2 data-i18n="s-faq-h">Questions</h2>
   <div class="line"></div>
-  <div class="faq-item">
-    <div class="faq-q">Can I run Cooper on my phone?</div>
-    <div class="faq-a">Yes. Any smartphone from 2020 or newer with 2+ GB RAM. Android first, iOS planned.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">What happens without internet?</div>
-    <div class="faq-a">Everything works. Cooper runs 100% locally. Internet is never required for any core function.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">Does Cooper learn from my conversations?</div>
-    <div class="faq-a">Only on your device. Nothing is sent anywhere. Your Cooper knows only what your family teaches it.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">Can I delete all data?</div>
-    <div class="faq-a">Yes. All data lives on your device. Delete the app, delete the data. No cloud backup unless you choose one.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">Is Cooper safe for children?</div>
-    <div class="faq-a">Cooper has hard anti-addiction limits (DSEI IV), session budgets, and manipulation detection (TVE 6-axis). It is designed for families.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">Does Cooper replace ChatGPT?</div>
-    <div class="faq-a">No. Cooper is smaller, local, and private. It trades capability for honesty, privacy, and human control. Different tool, different purpose.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">What model does Cooper use?</div>
-    <div class="faq-a">Cooper is model-agnostic. It runs any open model under 3B parameters. No vendor lock-in. The engine is what matters &mdash; not the model.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">When can I try it?</div>
-    <div class="faq-a">Cooper is in active development. Private beta planned for late 2026. The engine (146 tests, DSEI 7/7) is already built.</div>
-  </div>
+  <div class="faq-item"><div class="faq-q" data-i18n="s-faq-q1">Can I run Cooper on my phone?</div><div class="faq-a" data-i18n="s-faq-a1">Yes. Any smartphone from 2020 or newer with 2+ GB RAM. Android first, iOS planned.</div></div>
+  <div class="faq-item"><div class="faq-q" data-i18n="s-faq-q2">What happens without internet?</div><div class="faq-a" data-i18n="s-faq-a2">Everything works. Cooper runs 100% locally. Internet is never required for any core function.</div></div>
+  <div class="faq-item"><div class="faq-q" data-i18n="s-faq-q3">Does Cooper learn from my conversations?</div><div class="faq-a" data-i18n="s-faq-a3">Only on your device. Nothing is sent anywhere. Your Cooper knows only what your family teaches it.</div></div>
+  <div class="faq-item"><div class="faq-q" data-i18n="s-faq-q4">Can I delete all data?</div><div class="faq-a" data-i18n="s-faq-a4">Yes. All data lives on your device. Delete the app, delete the data. No cloud backup unless you choose one.</div></div>
+  <div class="faq-item"><div class="faq-q" data-i18n="s-faq-q5">Is Cooper safe for children?</div><div class="faq-a" data-i18n="s-faq-a5">Cooper has hard anti-addiction limits (DSEI IV), session budgets, and manipulation detection (TVE 6-axis). It is designed for families.</div></div>
+  <div class="faq-item"><div class="faq-q" data-i18n="s-faq-q6">Does Cooper replace ChatGPT?</div><div class="faq-a" data-i18n="s-faq-a6">No. Cooper is smaller, local, and private. It trades capability for honesty, privacy, and human control. Different tool, different purpose.</div></div>
+  <div class="faq-item"><div class="faq-q" data-i18n="s-faq-q7">What model does Cooper use?</div><div class="faq-a" data-i18n="s-faq-a7">Cooper is model-agnostic. It runs any open model under 3B parameters. No vendor lock-in. The engine is what matters &mdash; not the model.</div></div>
+  <div class="faq-item"><div class="faq-q" data-i18n="s-faq-q8">When can I try it?</div><div class="faq-a" data-i18n="s-faq-a8">Cooper is in active development. Private beta planned for late 2026. The engine (146 tests, DSEI 7/7) is already built.</div></div>
 </section>
 
 <!-- CTA -->
 <section class="cta">
-  <div class="cta-text">Part of the ami* ecosystem. Built in Europe. For every home.</div>
+  <div class="cta-text" data-i18n="s-cta">Part of the ami* ecosystem. Built in Europe. For every home.</div>
   <div class="cta-links">
-    <a href="https://github.com/amidigiart/amicooperai-engine" class="primary">Engine on GitHub</a>
+    <a href="https://github.com/amidigiart/amicooperai-engine" class="primary" data-i18n="s-cta-engine">Engine on GitHub</a>
     <a href="https://bridgrai.com">BRIDGRAI</a>
     <a href="https://amiecosystems.com">ami* Ecosystem</a>
     <a href="https://agischool.academy/dashboard.html">Trust Dashboard</a>
-    <a href="https://github.com/amidigiart">All Repositories</a>
+    <a href="https://github.com/amidigiart" data-i18n="s-cta-repos">All Repositories</a>
   </div>
 </section>
 
 </main>
 
 <footer>
-  <p>&copy; 2024&ndash;2026 Mihai Roșca / BRIDGRAI &mdash; Free for personal use. Commercial licence available.</p>
+  <p data-i18n="s-footer-copy">&copy; 2024&ndash;2026 Mihai Roșca / BRIDGRAI &mdash; Free for personal use. Commercial licence available.</p>
   <p>Built in Europe &nbsp;|&nbsp; <a href="https://orcid.org/0009-0001-1422-6209">ORCID</a> &nbsp;|&nbsp; <a href="https://github.com/amidigiart">GitHub</a> &nbsp;|&nbsp; <a href="mailto:mihairosca1982@gmail.com">Contact</a></p>
-  <p style="margin-top:8px;color:var(--core)">The smallest brain that still listens.</p>
+  <p style="margin-top:8px;color:var(--core)" data-i18n="s-footer-tag">The smallest brain that still listens.</p>
 </footer>
 
+<script>
+(function(){
+var ro={
+"hero-h1":"Cel mai <em>mic</em> creier AI.<br>Ghidat de un om.",
+"hero-tagline":"Rulează pe un Raspberry Pi. Vorbește 6 limbi. Răspunde onest. Nu acționează singur. Nu trimite datele tale în cloud. Cooper este AI-ul pe care familia ta îl <strong>deține</strong> — nu îl închiriază.",
+"hero-status":"În dezvoltare — beta privat în 2026",
+"s-problem-h":"Problema",
+"s-problem-1":"AI-ul pe care îl folosești azi rulează pe serverul altcuiva. Întrebările tale, conversațiile familiei tale, temele copilului tău — procesate pe infrastructură pe care nu o controlezi, de companii care îți monetizează datele.",
+"s-problem-2":"Alternativa — să rulezi un model deschis local — necesită cunoștințe tehnice, 8–32 GB de RAM și îți dă un model brut fără nicio protecție de siguranță, fără refuz onest, fără protecție pentru copii.",
+"s-problem-3":"<strong>Cooper este a treia opțiune:</strong> un creier AI suficient de mic pentru orice casă, suficient de sigur pentru orice familie, suficient de onest să spună „Nu știu."",
+"s-what-h":"Ce este Cooper",
+"s-what-1":"<strong>Cooper este cel mai mic creier AI viabil</strong> — viabil însemnând: răspunde onest la întrebările reale ale unei familii, în șase limbi, pe hardware de consum, cu siguranță structurală integrată. Nu e jucărie. Nu e demo. Un creier care funcționează.",
+"s-what-2":"Suficient de mic pentru telefon, Raspberry Pi, un laptop vechi de zece ani. Fără fermă de GPU-uri. Fără abonament necesar ca să gândească.",
+"s-what-3":"O singură constrângere structurală: <strong>un om trebuie să-l ghideze.</strong> Cooper nu decide. Cooper nu acționează autonom. Cooper așteaptă, procesează, returnează un răspuns onest — sau spune „Nu știu."",
+"s-what-4":"Aceasta nu este inteligență artificială generală. Aceasta este <strong>cooperare artificială.</strong>",
+"s-can-h":"Ce poate face Cooper",
+"s-can-1":"<strong>Răspunde la întrebări în 6 limbi</strong> — română, engleză, spaniolă, franceză, germană, italiană",
+"s-can-2":"<strong>Explică documente</strong> — facturi, contracte, prospecte medicale, teme",
+"s-can-3":"<strong>Ajută copiii să învețe</strong> — fără să trimită întrebările lor pe un server",
+"s-can-4":"<strong>Traduce în timp real</strong> — între oricare din cele 6 limbi suportate",
+"s-can-5":"<strong>Păstrează un jurnal privat de familie</strong> — conversații care nu pleacă din casa ta",
+"s-can-6":"<strong>Detectează manipularea</strong> — analiză TVE 6 axe, integrată în motor",
+"s-can-7":"<strong>Refuză când nu e sigur</strong> — „Nu știu" este o trăsătură structurală, nu un bug",
+"s-can-8":"<strong>Funcționează offline</strong> — nu e nevoie de internet pentru nicio funcție de bază",
+"s-cant-h":"Ce nu poate face Cooper",
+"s-cant-intro":"Onestitatea este un principiu de design. Iată ce NU va face Cooper:",
+"s-cant-1":"<strong>Fără acces la internet</strong> implicit. Cooper nu navighează, nu caută, nu descarcă date remote.",
+"s-cant-2":"<strong>Fără control smart home.</strong> Cooper răspunde la întrebări. Nu controlează dispozitive.",
+"s-cant-3":"<strong>Fără sfaturi medicale, juridice sau financiare.</strong> Cooper nu e profesionist. O va spune.",
+"s-cant-4":"<strong>Fără stocare în cloud.</strong> Datele rămân pe dispozitivul tău. Nu există „sincronizare cloud" implicit.",
+"s-cant-5":"<strong>Nu învață de la alte familii.</strong> Cooper-ul tău știe doar ce familia ta îl învață.",
+"s-unlike-h":"Spre deosebire de AI-ul din cloud",
+"s-unlike-loc":"Dispozitivul tău","s-unlike-loc-n":"Nu un server remote",
+"s-unlike-priv":"Zero telemetrie","s-unlike-priv-n":"Nicio dată nu părăsește casa ta",
+"s-unlike-auto":"Nivel 0","s-unlike-auto-n":"Doar inițiat de om",
+"s-unlike-sub":"Gratuit","s-unlike-sub-n":"Uz personal, pentru totdeauna",
+"s-unlike-hon":"Structural","s-unlike-hon-n":"Refuză în loc să ghicească",
+"s-unlike-off":"Funcționalitate completă","s-unlike-off-n":"Fără internet necesar",
+"s-ollama-h":"De ce nu doar un model local?",
+"s-ollama-intro":"Poți rula Phi-3 sau Llama prin Ollama azi. Cooper nu e modelul — Cooper e ceea ce-l învelește:",
+"s-ollama-1":"<strong>7 principii de siguranță DSEI</strong> — aplicate la compilare cu 146 teste automate, nu instrucțiuni opționale",
+"s-ollama-2":"<strong>Refuzul onest este structural</strong> — hardcodat în motor, nu un prompt de sistem care poate fi spart",
+"s-ollama-3":"<strong>Ancora umană ca invariant</strong> — fiecare inferență necesită un om înregistrat. Fără procesare în fundal.",
+"s-ollama-4":"<strong>Detecție de manipulare TVE 6 axe</strong> — integrată în motor. Un model brut are zero protecție.",
+"s-ollama-5":"<strong>Oprire forțată pentru minori</strong> — bugete de sesiune, limite de atenție, anti-dependență. Ollama nu are nimic.",
+"s-ollama-6":"<strong>2 GB RAM, Raspberry Pi</strong> — Ollama + Llama are nevoie de 8–32 GB. Cooper rulează unde trăiesc familiile.",
+"s-ollama-footer":"Un model local brut e un creier fără coloană vertebrală. Cooper este coloana.",
+"s-princ-h":"Cinci principii de design",
+"s-p1-t":"Mic prin design","s-p1-d":"Modelul trebuie să ruleze pe hardware de consum. Dacă are nevoie de un centru de date, nu e Cooper. Compresie, cuantizare, pruning — orice e necesar să încapă într-o casă.",
+"s-p2-t":"Ghidat de om, mereu","s-p2-d":"Cooper nu inițiază niciodată. Cooper nu decide pentru tine. Cooper așteaptă, ascultă, procesează, returnează. Omul este ancora — structural, nu opțional.",
+"s-p3-t":"Local-first, privat pentru totdeauna","s-p3-d":"Datele rămân pe dispozitivul tău. Fără telemetrie. Fără sincronizare cloud dacă nu alegi tu. Conversațiile și întrebările familiei tale aparțin familiei tale.",
+"s-p4-t":"Onest peste capabil","s-p4-d":"„Nu știu" e răspunsul corect când modelul nu știe. Cooper refuză în loc să confabuleze. A fi mic înseamnă a accepta limitele — și a fi onest despre ele.",
+"s-p5-t":"Pentru fiecare casă","s-p5-d":"Nu pentru laboratoare. Nu pentru companii întâi. Pentru familia care vrea să înțeleagă un document. Pentru copilul care întreabă „de ce?" la ora 23. Pentru fiecare casă cu electricitate.",
+"s-tech-h":"Profil tehnic",
+"s-tech-th1":"Parametru","s-tech-th2":"Țintă",
+"s-safety-h":"Siguranță",
+"s-safety-intro":"Siguranța nu e o funcționalitate. Este arhitectura.",
+"s-safety-1":"Primatul uman — fiecare inferență necesită o ancoră umană înregistrată",
+"s-safety-2":"Refuz onest — spune „Nu știu" în loc să confabuleze",
+"s-safety-3":"Zero autonomie — fără acțiuni auto-inițiate, fără inferență în fundal",
+"s-safety-4":"Confidențialitate prin arhitectură — fără telemetrie, nicio dată nu părăsește dispozitivul",
+"s-safety-5":"Audit fără supraveghere — evenimentele sunt înregistrate, nu persoanele",
+"s-safety-6":"Anti-dependență — bugete stricte de atenție, limite de sesiune, detecție TVE 6 axe",
+"s-safety-7":"Act uman explicit — modificările de configurare necesită intenție umană",
+"s-anchor-h":"Ancora umană",
+"s-anchor-1":"Fiecare sistem AI din ecosistemul ami* se bazează pe un principiu: <strong>un AI fără ancoră umană își va pierde coerența.</strong> Aceasta nu este filozofie — este o proprietate structurală a sensului.",
+"s-anchor-2":"Cooper este expresia cea mai pură a acestui principiu. Este un creier care <strong>nu poate funcționa fără omul său.</strong> Nu din cauza unei limitări. Pentru că acesta este design-ul. Omul oferă context, intenție, valori și direcție. Cooper oferă calcul, recunoaștere de tipare și procesare onestă.",
+"s-anchor-3":"<strong>Împreună, cooperează.</strong> Acesta este numele. Acesta este produsul. Acesta este viitorul pe care-l construim — nu AI care înlocuiește oamenii, ci AI care <strong>face oamenii mai capabili rămânând sub controlul lor.</strong>",
+"s-lic-h":"Licență",
+"s-lic-personal":"Uz personal și familial","s-lic-personal-d":"Rulează Cooper acasă, pe dispozitivele tale, pentru familia ta. Toate funcțiile. Toate limbile. Fără limite.","s-lic-personal-p":"Gratuit",
+"s-lic-commercial":"Comercial / Enterprise","s-lic-commercial-d":"Instalează Cooper într-un business, produs sau serviciu. Contactează pentru termeni de licență.","s-lic-commercial-p":"Comercial",
+"s-why-h":"De ce acum",
+"s-why-1":"În septembrie 2026, CEO-ii Anthropic, OpenAI și xAI au fost de acord public: auto-îmbunătățirea recursivă este reală, mecanismele actuale de control sunt insuficiente, iar frontiera trebuie temperată.",
+"s-why-2":"Industria cere lumii să încetinească. <strong>Cooper este celălalt răspuns:</strong> nu doar încetiniți frontiera — construiți vatra. Un creier care rămâne mic, rămâne local, rămâne ghidat de om. Prin design, nu prin promisiune.",
+"s-why-3":"Industria AI construiește mai mare. Modele mai mari. Centre de date mai mari. Consum energetic mai mare. Dependență mai mare de corporații care dețin cloud-ul.",
+"s-why-4":"<strong>Cooper merge în direcția opusă.</strong> Mai mic. Local. Dependent de om. Pentru că viitorul AI nu e în cloud — e în sufragerie, bucătărie, bancă de școală, noptiera bătrânului.",
+"s-why-5":"3,8 miliarde de oameni au un smartphone <em>(GSMA, 2025)</em>. Fiecare poate avea un Cooper. <strong>Nu închiriat. Deținut.</strong> Nu monitorizat. Privat. Nu autonom. Cooperativ.",
+"s-why-6":"Acesta este modelul. Un creier per casă. Ghidat de omul care locuiește acolo.",
+"s-research-h":"Construit pe cercetare verificată",
+"s-research-intro":"Cooper nu e un proiect de weekend. Este construit pe cercetare publicată, verificabilă, cu marcaje temporale imuabile:",
+"s-research-footer":"Fiecare afirmație are un link. Fiecare link se rezolvă. Fiecare hash e pe blockchain.",
+"s-faq-h":"Întrebări",
+"s-faq-q1":"Pot rula Cooper pe telefon?","s-faq-a1":"Da. Orice smartphone din 2020 sau mai nou cu 2+ GB RAM. Android întâi, iOS planificat.",
+"s-faq-q2":"Ce se întâmplă fără internet?","s-faq-a2":"Totul funcționează. Cooper rulează 100% local. Internetul nu e necesar niciodată pentru nicio funcție de bază.",
+"s-faq-q3":"Cooper învață din conversațiile mele?","s-faq-a3":"Doar pe dispozitivul tău. Nimic nu e trimis nicăieri. Cooper-ul tău știe doar ce familia ta îl învață.",
+"s-faq-q4":"Pot șterge toate datele?","s-faq-a4":"Da. Toate datele sunt pe dispozitivul tău. Ștergi aplicația, ștergi datele. Fără backup cloud dacă nu alegi tu.",
+"s-faq-q5":"Cooper e sigur pentru copii?","s-faq-a5":"Cooper are limite stricte anti-dependență (DSEI IV), bugete de sesiune și detecție de manipulare (TVE 6 axe). Este proiectat pentru familii.",
+"s-faq-q6":"Cooper înlocuiește ChatGPT?","s-faq-a6":"Nu. Cooper e mai mic, local și privat. Schimbă capacitate pentru onestitate, confidențialitate și control uman. Unealtă diferită, scop diferit.",
+"s-faq-q7":"Ce model folosește Cooper?","s-faq-a7":"Cooper e model-agnostic. Rulează orice model deschis sub 3B parametri. Fără vendor lock-in. Motorul contează — nu modelul.",
+"s-faq-q8":"Când pot să-l încerc?","s-faq-a8":"Cooper este în dezvoltare activă. Beta privat planificat pentru sfârșitul lui 2026. Motorul (146 teste, DSEI 7/7) e deja construit.",
+"s-cta":"Parte din ecosistemul ami*. Construit în Europa. Pentru fiecare casă.",
+"s-cta-engine":"Motorul pe GitHub","s-cta-repos":"Toate repo-urile",
+"s-footer-copy":"&copy; 2024&ndash;2026 Mihai Roșca / BRIDGRAI &mdash; Gratuit pentru uz personal. Licență comercială disponibilă.",
+"s-footer-tag":"Cel mai mic creier care încă ascultă."
+};
+var es={
+"hero-h1":"El cerebro AI más <em>pequeño</em>.<br>Guiado por un humano.",
+"hero-tagline":"Funciona en una Raspberry Pi. Habla 6 idiomas. Responde honestamente. Nunca actúa solo. Nunca envía tus datos a la nube. Cooper es la IA que tu familia <strong>posee</strong> — no alquila.",
+"hero-status":"En desarrollo — beta privada en 2026",
+"s-problem-h":"El problema",
+"s-problem-1":"La IA que usas hoy funciona en el servidor de otra persona. Tus preguntas, las conversaciones de tu familia, los deberes de tu hijo — procesados en infraestructura que no controlas, por empresas que monetizan tus datos.",
+"s-problem-2":"La alternativa — ejecutar un modelo abierto localmente — requiere habilidades técnicas, 8–32 GB de RAM, y te da un modelo sin protecciones de seguridad, sin rechazo honesto, sin protección para niños.",
+"s-problem-3":"<strong>Cooper es la tercera opción:</strong> un cerebro IA lo suficientemente pequeño para cualquier hogar, seguro para cualquier familia, honesto para decir «No lo sé».",
+"s-what-h":"Qué es Cooper",
+"s-what-1":"<strong>Cooper es el cerebro IA viable más pequeño</strong> — viable significa: responde honestamente a las preguntas reales de una familia, en seis idiomas, en hardware de consumo, con seguridad estructural integrada. No es un juguete. No es una demo. Un cerebro que funciona.",
+"s-what-2":"Lo suficientemente pequeño para un teléfono, una Raspberry Pi, un portátil de diez años. Sin granja de GPUs. Sin suscripción necesaria para pensar.",
+"s-what-3":"Una restricción estructural: <strong>un humano debe guiarlo.</strong> Cooper no decide. Cooper no actúa de forma autónoma. Cooper espera, procesa, devuelve una respuesta honesta — o dice «No lo sé».",
+"s-what-4":"Esto no es inteligencia artificial general. Esto es <strong>cooperación artificial.</strong>",
+"s-can-h":"Qué puede hacer Cooper",
+"s-can-1":"<strong>Responder preguntas en 6 idiomas</strong> — rumano, inglés, español, francés, alemán, italiano",
+"s-can-2":"<strong>Explicar documentos</strong> — facturas, contratos, prospectos médicos, deberes",
+"s-can-3":"<strong>Ayudar a los niños a aprender</strong> — sin enviar sus preguntas a un servidor",
+"s-can-4":"<strong>Traducir en tiempo real</strong> — entre cualquiera de los 6 idiomas soportados",
+"s-can-5":"<strong>Mantener un diario familiar privado</strong> — conversaciones que nunca salen de tu casa",
+"s-can-6":"<strong>Detectar manipulación</strong> — análisis TVE 6 ejes, integrado en el motor",
+"s-can-7":"<strong>Rechazar cuando no está seguro</strong> — «No lo sé» es una característica estructural, no un error",
+"s-can-8":"<strong>Funcionar offline</strong> — no se necesita internet para ninguna función básica",
+"s-cant-h":"Qué no puede hacer Cooper",
+"s-cant-intro":"La honestidad es un principio de diseño. Esto es lo que Cooper NO hará:",
+"s-cant-1":"<strong>Sin acceso a internet</strong> por defecto. Cooper no navega, no busca ni descarga datos remotos.",
+"s-cant-2":"<strong>Sin control de hogar inteligente.</strong> Cooper responde preguntas. No controla dispositivos.",
+"s-cant-3":"<strong>Sin consejos médicos, legales o financieros.</strong> Cooper no es un profesional. Lo dirá.",
+"s-cant-4":"<strong>Sin almacenamiento en la nube.</strong> Los datos permanecen en tu dispositivo.",
+"s-cant-5":"<strong>No aprende de otras familias.</strong> Tu Cooper solo sabe lo que tu familia le enseña.",
+"s-unlike-h":"A diferencia de la IA en la nube",
+"s-unlike-loc":"Tu dispositivo","s-unlike-loc-n":"No un servidor remoto",
+"s-unlike-priv":"Cero telemetría","s-unlike-priv-n":"Ningún dato sale de tu casa",
+"s-unlike-auto":"Nivel 0","s-unlike-auto-n":"Solo iniciado por humanos",
+"s-unlike-sub":"Gratis","s-unlike-sub-n":"Uso personal, para siempre",
+"s-unlike-hon":"Estructural","s-unlike-hon-n":"Rechaza en lugar de adivinar",
+"s-unlike-off":"Función completa","s-unlike-off-n":"Sin internet necesario",
+"s-ollama-h":"¿Por qué no solo un modelo local?",
+"s-ollama-intro":"Puedes ejecutar Phi-3 o Llama con Ollama hoy. Cooper no es el modelo — Cooper es lo que lo envuelve:",
+"s-ollama-1":"<strong>7 principios de seguridad DSEI</strong> — aplicados en compilación con 146 tests automáticos, no instrucciones opcionales",
+"s-ollama-2":"<strong>El rechazo honesto es estructural</strong> — codificado en el motor, no un prompt que se puede hackear",
+"s-ollama-3":"<strong>Ancla humana como invariante</strong> — cada inferencia requiere un humano registrado. Sin procesamiento en segundo plano.",
+"s-ollama-4":"<strong>Detección de manipulación TVE 6 ejes</strong> — integrada en el motor. Un modelo crudo tiene cero protección.",
+"s-ollama-5":"<strong>Parada obligatoria para menores</strong> — presupuestos de sesión, límites de atención, anti-adicción. Ollama no tiene nada.",
+"s-ollama-6":"<strong>2 GB RAM, Raspberry Pi</strong> — Ollama + Llama necesita 8–32 GB. Cooper funciona donde viven las familias.",
+"s-ollama-footer":"Un modelo local crudo es un cerebro sin columna vertebral. Cooper es la columna.",
+"s-princ-h":"Cinco principios de diseño",
+"s-p1-t":"Pequeño por diseño","s-p1-d":"El modelo debe funcionar en hardware de consumo. Si necesita un centro de datos, no es Cooper.",
+"s-p2-t":"Guiado por humanos, siempre","s-p2-d":"Cooper nunca inicia. Cooper nunca decide por ti. Cooper espera, escucha, procesa, devuelve. El humano es el ancla — estructuralmente.",
+"s-p3-t":"Local primero, privado siempre","s-p3-d":"Los datos permanecen en tu dispositivo. Sin telemetría. Sin sincronización en la nube a menos que tú lo elijas.",
+"s-p4-t":"Honesto sobre capaz","s-p4-d":"«No lo sé» es la respuesta correcta cuando el modelo no sabe. Cooper rechaza en lugar de confabular.",
+"s-p5-t":"Para cada hogar","s-p5-d":"No para laboratorios. No para empresas primero. Para la familia que quiere entender un documento. Para el niño que pregunta «¿por qué?» a las 23h.",
+"s-tech-h":"Perfil técnico","s-tech-th1":"Parámetro","s-tech-th2":"Objetivo",
+"s-safety-h":"Seguridad",
+"s-safety-intro":"La seguridad no es una función. Es la arquitectura.",
+"s-safety-1":"Primacía humana — cada inferencia requiere un ancla humana registrada",
+"s-safety-2":"Rechazo honesto — dice «No lo sé» en lugar de confabular",
+"s-safety-3":"Cero autonomía — sin acciones auto-iniciadas, sin inferencia en segundo plano",
+"s-safety-4":"Privacidad por arquitectura — sin telemetría, ningún dato sale del dispositivo",
+"s-safety-5":"Auditoría sin vigilancia — se registran eventos, no personas",
+"s-safety-6":"Anti-adicción — presupuestos estrictos de atención, límites de sesión, detección TVE 6 ejes",
+"s-safety-7":"Acto humano explícito — los cambios de configuración requieren intención humana",
+"s-anchor-h":"El ancla humana",
+"s-anchor-1":"Cada sistema IA en el ecosistema ami* se basa en un principio: <strong>una IA sin ancla humana perderá coherencia.</strong> Esto no es filosofía — es una propiedad estructural del significado.",
+"s-anchor-2":"Cooper es la expresión más pura de este principio. Es un cerebro que <strong>no puede funcionar sin su humano.</strong> No por una limitación. Porque ese es el diseño.",
+"s-anchor-3":"<strong>Juntos, cooperan.</strong> Ese es el nombre. Ese es el producto. Ese es el futuro que estamos construyendo — no IA que reemplaza humanos, sino IA que <strong>hace a los humanos más capaces bajo su control.</strong>",
+"s-lic-h":"Licencia",
+"s-lic-personal":"Uso personal y familiar","s-lic-personal-d":"Ejecuta Cooper en casa, en tus dispositivos, para tu familia. Todas las funciones. Todos los idiomas. Sin límites.","s-lic-personal-p":"Gratis",
+"s-lic-commercial":"Comercial / Empresa","s-lic-commercial-d":"Despliega Cooper en un negocio, producto o servicio. Contacta para términos de licencia.","s-lic-commercial-p":"Comercial",
+"s-why-h":"¿Por qué ahora?",
+"s-why-1":"En septiembre de 2026, los CEOs de Anthropic, OpenAI y xAI acordaron públicamente: la auto-mejora recursiva es real, los mecanismos de control actuales son insuficientes, y la frontera debe ser moderada.",
+"s-why-2":"La industria pide al mundo que desacelere. <strong>Cooper es la otra respuesta:</strong> no solo desacelerar la frontera — construir el hogar.",
+"s-why-3":"La industria de IA construye más grande. Modelos más grandes. Centros de datos más grandes. Mayor consumo energético. Mayor dependencia de corporaciones que poseen la nube.",
+"s-why-4":"<strong>Cooper va en la dirección opuesta.</strong> Más pequeño. Local. Dependiente del humano. Porque el futuro de la IA no está en la nube — está en la sala, la cocina, el escritorio escolar.",
+"s-why-5":"3.800 millones de personas tienen un smartphone <em>(GSMA, 2025)</em>. Cada uno puede tener un Cooper. <strong>No alquilado. Propio.</strong> No monitorizado. Privado. No autónomo. Cooperativo.",
+"s-why-6":"Este es el modelo. Un cerebro por hogar. Guiado por el humano que vive allí.",
+"s-research-h":"Construido sobre investigación verificada",
+"s-research-intro":"Cooper no es un proyecto de fin de semana. Está construido sobre investigación publicada, verificable, con marcas temporales inmutables:",
+"s-research-footer":"Cada afirmación tiene un enlace. Cada enlace se resuelve. Cada hash está en blockchain.",
+"s-faq-h":"Preguntas",
+"s-faq-q1":"¿Puedo ejecutar Cooper en mi teléfono?","s-faq-a1":"Sí. Cualquier smartphone de 2020 o más nuevo con 2+ GB RAM. Android primero, iOS planeado.",
+"s-faq-q2":"¿Qué pasa sin internet?","s-faq-a2":"Todo funciona. Cooper opera 100% localmente. Internet nunca es necesario.",
+"s-faq-q3":"¿Cooper aprende de mis conversaciones?","s-faq-a3":"Solo en tu dispositivo. Nada se envía a ningún lado. Tu Cooper solo sabe lo que tu familia le enseña.",
+"s-faq-q4":"¿Puedo borrar todos los datos?","s-faq-a4":"Sí. Todos los datos están en tu dispositivo. Borras la app, borras los datos.",
+"s-faq-q5":"¿Cooper es seguro para niños?","s-faq-a5":"Cooper tiene límites estrictos anti-adicción (DSEI IV), presupuestos de sesión y detección de manipulación (TVE 6 ejes). Diseñado para familias.",
+"s-faq-q6":"¿Cooper reemplaza a ChatGPT?","s-faq-a6":"No. Cooper es más pequeño, local y privado. Cambia capacidad por honestidad, privacidad y control humano. Herramienta diferente, propósito diferente.",
+"s-faq-q7":"¿Qué modelo usa Cooper?","s-faq-a7":"Cooper es agnóstico al modelo. Ejecuta cualquier modelo abierto bajo 3B parámetros. Sin dependencia de proveedor.",
+"s-faq-q8":"¿Cuándo puedo probarlo?","s-faq-a8":"Cooper está en desarrollo activo. Beta privada planeada para finales de 2026. El motor (146 tests, DSEI 7/7) ya está construido.",
+"s-cta":"Parte del ecosistema ami*. Construido en Europa. Para cada hogar.",
+"s-cta-engine":"Motor en GitHub","s-cta-repos":"Todos los repositorios",
+"s-footer-copy":"&copy; 2024&ndash;2026 Mihai Roșca / BRIDGRAI &mdash; Gratis para uso personal. Licencia comercial disponible.",
+"s-footer-tag":"El cerebro más pequeño que aún escucha."
+};
+var fr={
+"hero-h1":"Le plus <em>petit</em> cerveau IA.<br>Guidé par un humain.",
+"hero-tagline":"Fonctionne sur un Raspberry Pi. Parle 6 langues. Répond honnêtement. N'agit jamais seul. N'envoie jamais vos données dans le cloud. Cooper est l'IA que votre famille <strong>possède</strong> — pas loue.",
+"hero-status":"En développement — bêta privée en 2026",
+"s-problem-h":"Le problème",
+"s-problem-1":"L'IA que vous utilisez aujourd'hui fonctionne sur le serveur de quelqu'un d'autre. Vos questions, les conversations de votre famille, les devoirs de votre enfant — traités sur une infrastructure que vous ne contrôlez pas.",
+"s-problem-2":"L'alternative — exécuter un modèle ouvert localement — nécessite des compétences techniques, 8–32 Go de RAM, et vous donne un modèle brut sans protection de sécurité.",
+"s-problem-3":"<strong>Cooper est la troisième option :</strong> un cerveau IA assez petit pour tout foyer, assez sûr pour toute famille, assez honnête pour dire « Je ne sais pas ».",
+"s-what-h":"Qu'est-ce que Cooper",
+"s-what-1":"<strong>Cooper est le plus petit cerveau IA viable</strong> — viable signifie : il répond honnêtement aux vraies questions d'une famille, en six langues, sur du matériel grand public, avec une sécurité structurelle intégrée.",
+"s-what-2":"Assez petit pour un téléphone, un Raspberry Pi, un vieux portable. Pas de ferme GPU. Pas d'abonnement requis pour penser.",
+"s-what-3":"Une seule contrainte structurelle : <strong>un humain doit le guider.</strong> Cooper ne décide pas. Cooper n'agit pas de manière autonome. Cooper attend, traite, retourne une réponse honnête — ou dit « Je ne sais pas ».",
+"s-what-4":"Ce n'est pas de l'intelligence artificielle générale. C'est de la <strong>coopération artificielle.</strong>",
+"s-can-h":"Ce que Cooper peut faire",
+"s-can-1":"<strong>Répondre aux questions en 6 langues</strong> — roumain, anglais, espagnol, français, allemand, italien",
+"s-can-2":"<strong>Expliquer des documents</strong> — factures, contrats, notices médicales, devoirs",
+"s-can-3":"<strong>Aider les enfants à apprendre</strong> — sans envoyer leurs questions à un serveur",
+"s-can-4":"<strong>Traduire en temps réel</strong> — entre les 6 langues supportées",
+"s-can-5":"<strong>Tenir un journal familial privé</strong> — des conversations qui ne quittent jamais votre maison",
+"s-can-6":"<strong>Détecter la manipulation</strong> — analyse TVE 6 axes, intégrée au moteur",
+"s-can-7":"<strong>Refuser quand il n'est pas sûr</strong> — « Je ne sais pas » est une caractéristique structurelle",
+"s-can-8":"<strong>Fonctionner hors ligne</strong> — aucune connexion internet requise",
+"s-cant-h":"Ce que Cooper ne peut pas faire",
+"s-cant-intro":"L'honnêteté est un principe de conception. Voici ce que Cooper ne fera PAS :",
+"s-cant-1":"<strong>Pas d'accès internet</strong> par défaut. Cooper ne navigue pas, ne cherche pas, ne télécharge pas.",
+"s-cant-2":"<strong>Pas de contrôle domotique.</strong> Cooper répond aux questions. Il ne contrôle pas d'appareils.",
+"s-cant-3":"<strong>Pas de conseils médicaux, juridiques ou financiers.</strong> Cooper n'est pas un professionnel.",
+"s-cant-4":"<strong>Pas de stockage cloud.</strong> Les données restent sur votre appareil.",
+"s-cant-5":"<strong>Pas d'apprentissage d'autres familles.</strong> Votre Cooper ne sait que ce que votre famille lui apprend.",
+"s-unlike-h":"Contrairement à l'IA cloud",
+"s-unlike-loc":"Votre appareil","s-unlike-loc-n":"Pas un serveur distant",
+"s-unlike-priv":"Zéro télémétrie","s-unlike-priv-n":"Aucune donnée ne quitte votre maison",
+"s-unlike-auto":"Niveau 0","s-unlike-auto-n":"Initié par l'humain uniquement",
+"s-unlike-sub":"Gratuit","s-unlike-sub-n":"Usage personnel, pour toujours",
+"s-unlike-hon":"Structurel","s-unlike-hon-n":"Refuse plutôt que deviner",
+"s-unlike-off":"Fonction complète","s-unlike-off-n":"Pas d'internet nécessaire",
+"s-ollama-h":"Pourquoi pas juste un modèle local ?",
+"s-ollama-intro":"Vous pouvez exécuter Phi-3 ou Llama via Ollama. Cooper n'est pas le modèle — Cooper est ce qui l'enveloppe :",
+"s-ollama-1":"<strong>7 principes de sécurité DSEI</strong> — appliqués à la compilation avec 146 tests automatisés",
+"s-ollama-2":"<strong>Le refus honnête est structurel</strong> — codé en dur dans le moteur, pas un prompt contournable",
+"s-ollama-3":"<strong>Ancre humaine comme invariant</strong> — chaque inférence nécessite un humain enregistré",
+"s-ollama-4":"<strong>Détection de manipulation TVE 6 axes</strong> — intégrée au moteur",
+"s-ollama-5":"<strong>Arrêt forcé pour mineurs</strong> — budgets de session, limites d'attention, anti-addiction",
+"s-ollama-6":"<strong>2 Go RAM, Raspberry Pi</strong> — Ollama + Llama nécessite 8–32 Go",
+"s-ollama-footer":"Un modèle local brut est un cerveau sans colonne vertébrale. Cooper est la colonne.",
+"s-princ-h":"Cinq principes de conception",
+"s-p1-t":"Petit par conception","s-p1-d":"Le modèle doit fonctionner sur du matériel grand public. S'il a besoin d'un centre de données, ce n'est pas Cooper.",
+"s-p2-t":"Guidé par l'humain, toujours","s-p2-d":"Cooper n'initie jamais. Cooper ne décide jamais pour vous. Cooper attend, écoute, traite, retourne.",
+"s-p3-t":"Local d'abord, privé pour toujours","s-p3-d":"Les données restent sur votre appareil. Pas de télémétrie. Pas de synchronisation cloud sauf si vous le choisissez.",
+"s-p4-t":"Honnête plutôt que capable","s-p4-d":"« Je ne sais pas » est la bonne réponse quand le modèle ne sait pas. Cooper refuse plutôt que confabuler.",
+"s-p5-t":"Pour chaque foyer","s-p5-d":"Pas pour les labos. Pas pour les entreprises d'abord. Pour la famille qui veut comprendre un document. Pour l'enfant qui demande « pourquoi ? » à 23h.",
+"s-tech-h":"Profil technique","s-tech-th1":"Paramètre","s-tech-th2":"Cible",
+"s-safety-h":"Sécurité",
+"s-safety-intro":"La sécurité n'est pas une fonctionnalité. C'est l'architecture.",
+"s-safety-1":"Primauté humaine — chaque inférence nécessite une ancre humaine enregistrée",
+"s-safety-2":"Refus honnête — dit « Je ne sais pas » plutôt que confabuler",
+"s-safety-3":"Zéro autonomie — pas d'actions auto-initiées",
+"s-safety-4":"Confidentialité par architecture — pas de télémétrie, aucune donnée ne quitte l'appareil",
+"s-safety-5":"Audit sans surveillance — les événements sont enregistrés, pas les personnes",
+"s-safety-6":"Anti-addiction — budgets d'attention stricts, limites de session, détection TVE 6 axes",
+"s-safety-7":"Acte humain explicite — les changements de configuration nécessitent l'intention humaine",
+"s-anchor-h":"L'ancre humaine",
+"s-anchor-1":"Chaque système IA dans l'écosystème ami* repose sur un principe : <strong>une IA sans ancre humaine perdra sa cohérence.</strong>",
+"s-anchor-2":"Cooper est l'expression la plus pure de ce principe. C'est un cerveau qui <strong>ne peut pas fonctionner sans son humain.</strong>",
+"s-anchor-3":"<strong>Ensemble, ils coopèrent.</strong> C'est le nom. C'est le produit. C'est le futur que nous construisons.",
+"s-lic-h":"Licence",
+"s-lic-personal":"Usage personnel et familial","s-lic-personal-d":"Exécutez Cooper chez vous, sur vos appareils. Toutes les fonctions. Toutes les langues. Sans limites.","s-lic-personal-p":"Gratuit",
+"s-lic-commercial":"Commercial / Entreprise","s-lic-commercial-d":"Déployez Cooper dans une entreprise ou un service. Contactez pour les termes.","s-lic-commercial-p":"Commercial",
+"s-why-h":"Pourquoi maintenant",
+"s-why-1":"En septembre 2026, les PDG d'Anthropic, OpenAI et xAI ont convenu publiquement : l'auto-amélioration récursive est réelle, les mécanismes de contrôle actuels sont insuffisants.",
+"s-why-2":"L'industrie demande au monde de ralentir. <strong>Cooper est l'autre réponse :</strong> ne pas seulement ralentir la frontière — construire le foyer.",
+"s-why-3":"L'industrie de l'IA construit plus grand. Modèles plus grands. Centres de données plus grands. Plus de consommation d'énergie.",
+"s-why-4":"<strong>Cooper va dans l'autre direction.</strong> Plus petit. Local. Dépendant de l'humain.",
+"s-why-5":"3,8 milliards de personnes ont un smartphone <em>(GSMA, 2025)</em>. Chacun peut avoir un Cooper. <strong>Pas loué. Possédé.</strong>",
+"s-why-6":"C'est le modèle. Un cerveau par foyer. Guidé par l'humain qui y vit.",
+"s-research-h":"Construit sur de la recherche vérifiée",
+"s-research-intro":"Cooper n'est pas un projet de week-end. Il est construit sur de la recherche publiée, vérifiable, avec des horodatages immuables :",
+"s-research-footer":"Chaque affirmation a un lien. Chaque lien se résout. Chaque hash est sur la blockchain.",
+"s-faq-h":"Questions",
+"s-faq-q1":"Puis-je exécuter Cooper sur mon téléphone ?","s-faq-a1":"Oui. Tout smartphone de 2020 ou plus récent avec 2+ Go RAM.",
+"s-faq-q2":"Que se passe-t-il sans internet ?","s-faq-a2":"Tout fonctionne. Cooper tourne 100% localement.",
+"s-faq-q3":"Cooper apprend-il de mes conversations ?","s-faq-a3":"Uniquement sur votre appareil. Rien n'est envoyé nulle part.",
+"s-faq-q4":"Puis-je supprimer toutes les données ?","s-faq-a4":"Oui. Toutes les données sont sur votre appareil. Supprimez l'app, supprimez les données.",
+"s-faq-q5":"Cooper est-il sûr pour les enfants ?","s-faq-a5":"Cooper a des limites anti-addiction strictes (DSEI IV), des budgets de session et la détection de manipulation (TVE 6 axes).",
+"s-faq-q6":"Cooper remplace-t-il ChatGPT ?","s-faq-a6":"Non. Cooper est plus petit, local et privé. Outil différent, objectif différent.",
+"s-faq-q7":"Quel modèle utilise Cooper ?","s-faq-a7":"Cooper est agnostique au modèle. Il exécute tout modèle ouvert sous 3B paramètres.",
+"s-faq-q8":"Quand puis-je l'essayer ?","s-faq-a8":"Cooper est en développement actif. Bêta privée prévue fin 2026. Le moteur (146 tests, DSEI 7/7) est déjà construit.",
+"s-cta":"Partie de l'écosystème ami*. Construit en Europe. Pour chaque foyer.",
+"s-cta-engine":"Moteur sur GitHub","s-cta-repos":"Tous les dépôts",
+"s-footer-copy":"&copy; 2024&ndash;2026 Mihai Roșca / BRIDGRAI &mdash; Gratuit pour usage personnel. Licence commerciale disponible.",
+"s-footer-tag":"Le plus petit cerveau qui écoute encore."
+};
+var de={
+"hero-h1":"Das <em>kleinste</em> KI-Gehirn.<br>Geführt von einem Menschen.",
+"hero-tagline":"Läuft auf einem Raspberry Pi. Spricht 6 Sprachen. Antwortet ehrlich. Handelt nie allein. Sendet nie Daten in die Cloud. Cooper ist die KI, die Ihre Familie <strong>besitzt</strong> — nicht mietet.",
+"hero-status":"In Entwicklung — private Beta 2026",
+"s-problem-h":"Das Problem",
+"s-problem-1":"Die KI, die Sie heute nutzen, läuft auf dem Server eines anderen. Ihre Fragen, die Gespräche Ihrer Familie, die Hausaufgaben Ihres Kindes — verarbeitet auf Infrastruktur, die Sie nicht kontrollieren.",
+"s-problem-2":"Die Alternative — ein offenes Modell lokal ausführen — erfordert technisches Wissen, 8–32 GB RAM und gibt Ihnen ein rohes Modell ohne Sicherheitsschutz.",
+"s-problem-3":"<strong>Cooper ist die dritte Option:</strong> ein KI-Gehirn, klein genug für jedes Zuhause, sicher genug für jede Familie, ehrlich genug um „Ich weiß nicht" zu sagen.",
+"s-what-h":"Was Cooper ist",
+"s-what-1":"<strong>Cooper ist das kleinste lebensfähige KI-Gehirn</strong> — lebensfähig bedeutet: es beantwortet die echten Fragen einer Familie ehrlich, in sechs Sprachen, auf Consumer-Hardware, mit struktureller Sicherheit.",
+"s-what-2":"Klein genug für ein Telefon, einen Raspberry Pi, einen zehn Jahre alten Laptop. Keine GPU-Farm. Kein Abo nötig zum Denken.",
+"s-what-3":"Eine strukturelle Einschränkung: <strong>ein Mensch muss es führen.</strong> Cooper entscheidet nicht. Cooper handelt nicht autonom. Cooper wartet, verarbeitet, gibt eine ehrliche Antwort — oder sagt „Ich weiß nicht."",
+"s-what-4":"Das ist keine allgemeine künstliche Intelligenz. Das ist <strong>künstliche Kooperation.</strong>",
+"s-can-h":"Was Cooper kann",
+"s-can-1":"<strong>Fragen in 6 Sprachen beantworten</strong> — Rumänisch, Englisch, Spanisch, Französisch, Deutsch, Italienisch",
+"s-can-2":"<strong>Dokumente erklären</strong> — Rechnungen, Verträge, medizinische Beipackzettel, Hausaufgaben",
+"s-can-3":"<strong>Kindern beim Lernen helfen</strong> — ohne ihre Fragen an einen Server zu senden",
+"s-can-4":"<strong>In Echtzeit übersetzen</strong> — zwischen allen 6 unterstützten Sprachen",
+"s-can-5":"<strong>Ein privates Familientagebuch führen</strong> — Gespräche, die nie Ihr Haus verlassen",
+"s-can-6":"<strong>Manipulation erkennen</strong> — TVE 6-Achsen-Analyse, in den Motor integriert",
+"s-can-7":"<strong>Ablehnen bei Unsicherheit</strong> — „Ich weiß nicht" ist ein strukturelles Merkmal",
+"s-can-8":"<strong>Offline arbeiten</strong> — kein Internet für Kernfunktionen erforderlich",
+"s-cant-h":"Was Cooper nicht kann",
+"s-cant-intro":"Ehrlichkeit ist ein Designprinzip. Das wird Cooper NICHT tun:",
+"s-cant-1":"<strong>Kein Internetzugang</strong> standardmäßig. Cooper surft nicht, sucht nicht, lädt nichts herunter.",
+"s-cant-2":"<strong>Keine Smart-Home-Steuerung.</strong> Cooper beantwortet Fragen. Er steuert keine Geräte.",
+"s-cant-3":"<strong>Keine medizinischen, rechtlichen oder finanziellen Ratschläge.</strong> Cooper ist kein Fachmann.",
+"s-cant-4":"<strong>Kein Cloud-Speicher.</strong> Daten bleiben auf Ihrem Gerät.",
+"s-cant-5":"<strong>Kein Lernen von anderen Familien.</strong> Ihr Cooper weiß nur, was Ihre Familie ihm beibringt.",
+"s-unlike-h":"Anders als Cloud-KI",
+"s-unlike-loc":"Ihr Gerät","s-unlike-loc-n":"Kein Remote-Server",
+"s-unlike-priv":"Null Telemetrie","s-unlike-priv-n":"Keine Daten verlassen Ihr Haus",
+"s-unlike-auto":"Stufe 0","s-unlike-auto-n":"Nur vom Menschen initiiert",
+"s-unlike-sub":"Kostenlos","s-unlike-sub-n":"Persönliche Nutzung, für immer",
+"s-unlike-hon":"Strukturell","s-unlike-hon-n":"Lehnt ab statt zu raten",
+"s-unlike-off":"Volle Funktion","s-unlike-off-n":"Kein Internet nötig",
+"s-ollama-h":"Warum nicht einfach ein lokales Modell?",
+"s-ollama-intro":"Sie können Phi-3 oder Llama über Ollama ausführen. Cooper ist nicht das Modell — Cooper ist das, was es umhüllt:",
+"s-ollama-1":"<strong>7 DSEI-Sicherheitsprinzipien</strong> — zur Build-Zeit mit 146 automatisierten Tests durchgesetzt",
+"s-ollama-2":"<strong>Ehrliche Ablehnung ist strukturell</strong> — im Motor hartcodiert, kein hackbarer System-Prompt",
+"s-ollama-3":"<strong>Menschlicher Anker als Invariante</strong> — jede Inferenz erfordert einen registrierten Menschen",
+"s-ollama-4":"<strong>TVE 6-Achsen-Manipulationserkennung</strong> — in den Motor integriert",
+"s-ollama-5":"<strong>Zwangsstopp für Minderjährige</strong> — Sitzungsbudgets, Aufmerksamkeitslimits, Anti-Sucht",
+"s-ollama-6":"<strong>2 GB RAM, Raspberry Pi</strong> — Ollama + Llama braucht 8–32 GB",
+"s-ollama-footer":"Ein rohes lokales Modell ist ein Gehirn ohne Wirbelsäule. Cooper ist die Wirbelsäule.",
+"s-princ-h":"Fünf Designprinzipien",
+"s-p1-t":"Klein durch Design","s-p1-d":"Das Modell muss auf Consumer-Hardware laufen. Wenn es ein Rechenzentrum braucht, ist es nicht Cooper.",
+"s-p2-t":"Immer menschengeführt","s-p2-d":"Cooper initiiert nie. Cooper entscheidet nie für Sie. Cooper wartet, hört zu, verarbeitet, gibt zurück.",
+"s-p3-t":"Lokal zuerst, privat für immer","s-p3-d":"Daten bleiben auf Ihrem Gerät. Keine Telemetrie. Keine Cloud-Synchronisation, es sei denn, Sie wählen es.",
+"s-p4-t":"Ehrlich statt fähig","s-p4-d":"„Ich weiß nicht" ist die richtige Antwort, wenn das Modell es nicht weiß. Cooper lehnt ab statt zu konfabulieren.",
+"s-p5-t":"Für jedes Zuhause","s-p5-d":"Nicht für Labore. Nicht für Unternehmen zuerst. Für die Familie, die ein Dokument verstehen will. Für das Kind, das um 23 Uhr „warum?" fragt.",
+"s-tech-h":"Technisches Profil","s-tech-th1":"Parameter","s-tech-th2":"Ziel",
+"s-safety-h":"Sicherheit","s-safety-intro":"Sicherheit ist kein Feature. Sie ist die Architektur.",
+"s-safety-1":"Menschlicher Vorrang — jede Inferenz erfordert einen registrierten menschlichen Anker",
+"s-safety-2":"Ehrliche Ablehnung — sagt „Ich weiß nicht" statt zu konfabulieren",
+"s-safety-3":"Null Autonomie — keine selbst initiierten Aktionen",
+"s-safety-4":"Datenschutz durch Architektur — keine Telemetrie, keine Daten verlassen das Gerät",
+"s-safety-5":"Prüfung ohne Überwachung — Ereignisse werden protokolliert, nicht Personen",
+"s-safety-6":"Anti-Sucht — strikte Aufmerksamkeitsbudgets, Sitzungslimits, TVE 6-Achsen-Erkennung",
+"s-safety-7":"Expliziter menschlicher Akt — Konfigurationsänderungen erfordern menschliche Absicht",
+"s-anchor-h":"Der menschliche Anker",
+"s-anchor-1":"Jedes KI-System im ami*-Ökosystem basiert auf einem Prinzip: <strong>eine KI ohne menschlichen Anker verliert ihre Kohärenz.</strong>",
+"s-anchor-2":"Cooper ist der reinste Ausdruck dieses Prinzips. Es ist ein Gehirn, das <strong>ohne seinen Menschen nicht funktionieren kann.</strong>",
+"s-anchor-3":"<strong>Zusammen kooperieren sie.</strong> Das ist der Name. Das ist das Produkt. Das ist die Zukunft, die wir bauen.",
+"s-lic-h":"Lizenz",
+"s-lic-personal":"Persönliche und familiäre Nutzung","s-lic-personal-d":"Führen Sie Cooper zu Hause aus. Alle Funktionen. Alle Sprachen. Ohne Limits.","s-lic-personal-p":"Kostenlos",
+"s-lic-commercial":"Kommerziell / Unternehmen","s-lic-commercial-d":"Setzen Sie Cooper in einem Unternehmen ein. Kontaktieren Sie uns für Lizenzbedingungen.","s-lic-commercial-p":"Kommerziell",
+"s-why-h":"Warum jetzt",
+"s-why-1":"Im September 2026 stimmten die CEOs von Anthropic, OpenAI und xAI öffentlich überein: rekursive Selbstverbesserung ist real, aktuelle Kontrollmechanismen sind unzureichend.",
+"s-why-2":"Die Industrie bittet die Welt zu bremsen. <strong>Cooper ist die andere Antwort:</strong> nicht nur die Grenze bremsen — das Zuhause bauen.",
+"s-why-3":"Die KI-Industrie baut größer. Größere Modelle. Größere Rechenzentren. Mehr Energieverbrauch.",
+"s-why-4":"<strong>Cooper geht in die andere Richtung.</strong> Kleiner. Lokal. Menschenabhängig.",
+"s-why-5":"3,8 Milliarden Menschen haben ein Smartphone <em>(GSMA, 2025)</em>. Jeder kann einen Cooper haben. <strong>Nicht gemietet. Besessen.</strong>",
+"s-why-6":"Das ist das Modell. Ein Gehirn pro Haushalt. Geführt vom Menschen, der dort lebt.",
+"s-research-h":"Gebaut auf verifizierter Forschung",
+"s-research-intro":"Cooper ist kein Wochenendprojekt. Es basiert auf publizierter, überprüfbarer Forschung mit unveränderlichen Zeitstempeln:",
+"s-research-footer":"Jede Behauptung hat einen Link. Jeder Link löst sich auf. Jeder Hash ist auf der Blockchain.",
+"s-faq-h":"Fragen",
+"s-faq-q1":"Kann ich Cooper auf meinem Telefon ausführen?","s-faq-a1":"Ja. Jedes Smartphone ab 2020 mit 2+ GB RAM.",
+"s-faq-q2":"Was passiert ohne Internet?","s-faq-a2":"Alles funktioniert. Cooper läuft 100% lokal.",
+"s-faq-q3":"Lernt Cooper aus meinen Gesprächen?","s-faq-a3":"Nur auf Ihrem Gerät. Nichts wird irgendwohin gesendet.",
+"s-faq-q4":"Kann ich alle Daten löschen?","s-faq-a4":"Ja. Alle Daten sind auf Ihrem Gerät. App löschen = Daten löschen.",
+"s-faq-q5":"Ist Cooper sicher für Kinder?","s-faq-a5":"Cooper hat strikte Anti-Sucht-Limits (DSEI IV), Sitzungsbudgets und Manipulationserkennung (TVE 6 Achsen).",
+"s-faq-q6":"Ersetzt Cooper ChatGPT?","s-faq-a6":"Nein. Cooper ist kleiner, lokal und privat. Anderes Werkzeug, anderer Zweck.",
+"s-faq-q7":"Welches Modell nutzt Cooper?","s-faq-a7":"Cooper ist modellagnostisch. Es führt jedes offene Modell unter 3B Parametern aus.",
+"s-faq-q8":"Wann kann ich es ausprobieren?","s-faq-a8":"Cooper ist in aktiver Entwicklung. Private Beta geplant Ende 2026. Der Motor (146 Tests, DSEI 7/7) ist bereits gebaut.",
+"s-cta":"Teil des ami*-Ökosystems. Gebaut in Europa. Für jedes Zuhause.",
+"s-cta-engine":"Motor auf GitHub","s-cta-repos":"Alle Repositories",
+"s-footer-copy":"&copy; 2024&ndash;2026 Mihai Roșca / BRIDGRAI &mdash; Kostenlos für persönliche Nutzung. Kommerzielle Lizenz verfügbar.",
+"s-footer-tag":"Das kleinste Gehirn, das noch zuhört."
+};
+var it={
+"hero-h1":"Il cervello AI più <em>piccolo</em>.<br>Guidato da un umano.",
+"hero-tagline":"Funziona su un Raspberry Pi. Parla 6 lingue. Risponde onestamente. Non agisce mai da solo. Non invia mai i tuoi dati nel cloud. Cooper è l'IA che la tua famiglia <strong>possiede</strong> — non affitta.",
+"hero-status":"In sviluppo — beta privata nel 2026",
+"s-problem-h":"Il problema",
+"s-problem-1":"L'IA che usi oggi funziona sul server di qualcun altro. Le tue domande, le conversazioni della tua famiglia, i compiti di tuo figlio — elaborati su infrastruttura che non controlli.",
+"s-problem-2":"L'alternativa — eseguire un modello aperto localmente — richiede competenze tecniche, 8–32 GB di RAM, e ti dà un modello grezzo senza protezioni di sicurezza.",
+"s-problem-3":"<strong>Cooper è la terza opzione:</strong> un cervello IA abbastanza piccolo per qualsiasi casa, sicuro per qualsiasi famiglia, onesto abbastanza da dire «Non lo so».",
+"s-what-h":"Cos'è Cooper",
+"s-what-1":"<strong>Cooper è il più piccolo cervello IA funzionante</strong> — funzionante significa: risponde onestamente alle vere domande di una famiglia, in sei lingue, su hardware consumer, con sicurezza strutturale integrata.",
+"s-what-2":"Abbastanza piccolo per un telefono, un Raspberry Pi, un laptop vecchio di dieci anni. Nessuna farm GPU. Nessun abbonamento per pensare.",
+"s-what-3":"Un solo vincolo strutturale: <strong>un umano deve guidarlo.</strong> Cooper non decide. Cooper non agisce autonomamente. Cooper aspetta, elabora, restituisce una risposta onesta — o dice «Non lo so».",
+"s-what-4":"Questa non è intelligenza artificiale generale. Questa è <strong>cooperazione artificiale.</strong>",
+"s-can-h":"Cosa può fare Cooper",
+"s-can-1":"<strong>Rispondere a domande in 6 lingue</strong> — rumeno, inglese, spagnolo, francese, tedesco, italiano",
+"s-can-2":"<strong>Spiegare documenti</strong> — bollette, contratti, foglietti illustrativi, compiti",
+"s-can-3":"<strong>Aiutare i bambini a imparare</strong> — senza inviare le loro domande a un server",
+"s-can-4":"<strong>Tradurre in tempo reale</strong> — tra le 6 lingue supportate",
+"s-can-5":"<strong>Tenere un diario familiare privato</strong> — conversazioni che non lasciano mai la tua casa",
+"s-can-6":"<strong>Rilevare la manipolazione</strong> — analisi TVE 6 assi, integrata nel motore",
+"s-can-7":"<strong>Rifiutare quando non è sicuro</strong> — «Non lo so» è una caratteristica strutturale",
+"s-can-8":"<strong>Funzionare offline</strong> — nessuna connessione internet richiesta",
+"s-cant-h":"Cosa Cooper non può fare",
+"s-cant-intro":"L'onestà è un principio di design. Ecco cosa Cooper NON farà:",
+"s-cant-1":"<strong>Nessun accesso internet</strong> di default. Cooper non naviga, non cerca, non scarica.",
+"s-cant-2":"<strong>Nessun controllo smart home.</strong> Cooper risponde a domande. Non controlla dispositivi.",
+"s-cant-3":"<strong>Nessun consiglio medico, legale o finanziario.</strong> Cooper non è un professionista.",
+"s-cant-4":"<strong>Nessun archivio cloud.</strong> I dati restano sul tuo dispositivo.",
+"s-cant-5":"<strong>Non impara da altre famiglie.</strong> Il tuo Cooper sa solo ciò che la tua famiglia gli insegna.",
+"s-unlike-h":"A differenza dell'IA cloud",
+"s-unlike-loc":"Il tuo dispositivo","s-unlike-loc-n":"Non un server remoto",
+"s-unlike-priv":"Zero telemetria","s-unlike-priv-n":"Nessun dato lascia la tua casa",
+"s-unlike-auto":"Livello 0","s-unlike-auto-n":"Solo su iniziativa umana",
+"s-unlike-sub":"Gratuito","s-unlike-sub-n":"Uso personale, per sempre",
+"s-unlike-hon":"Strutturale","s-unlike-hon-n":"Rifiuta piuttosto che indovinare",
+"s-unlike-off":"Funzione completa","s-unlike-off-n":"Nessun internet necessario",
+"s-ollama-h":"Perché non solo un modello locale?",
+"s-ollama-intro":"Puoi eseguire Phi-3 o Llama tramite Ollama. Cooper non è il modello — Cooper è ciò che lo avvolge:",
+"s-ollama-1":"<strong>7 principi di sicurezza DSEI</strong> — applicati alla compilazione con 146 test automatizzati",
+"s-ollama-2":"<strong>Il rifiuto onesto è strutturale</strong> — codificato nel motore, non un prompt aggirabile",
+"s-ollama-3":"<strong>Àncora umana come invariante</strong> — ogni inferenza richiede un umano registrato",
+"s-ollama-4":"<strong>Rilevamento manipolazione TVE 6 assi</strong> — integrato nel motore",
+"s-ollama-5":"<strong>Arresto forzato per minori</strong> — budget di sessione, limiti di attenzione, anti-dipendenza",
+"s-ollama-6":"<strong>2 GB RAM, Raspberry Pi</strong> — Ollama + Llama richiede 8–32 GB",
+"s-ollama-footer":"Un modello locale grezzo è un cervello senza spina dorsale. Cooper è la spina dorsale.",
+"s-princ-h":"Cinque principi di design",
+"s-p1-t":"Piccolo per design","s-p1-d":"Il modello deve funzionare su hardware consumer. Se ha bisogno di un data center, non è Cooper.",
+"s-p2-t":"Sempre guidato dall'umano","s-p2-d":"Cooper non inizia mai. Cooper non decide mai per te. Cooper aspetta, ascolta, elabora, restituisce.",
+"s-p3-t":"Prima locale, privato per sempre","s-p3-d":"I dati restano sul tuo dispositivo. Nessuna telemetria. Nessuna sincronizzazione cloud a meno che tu non lo scelga.",
+"s-p4-t":"Onesto più che capace","s-p4-d":"«Non lo so» è la risposta giusta quando il modello non sa. Cooper rifiuta piuttosto che confabulare.",
+"s-p5-t":"Per ogni casa","s-p5-d":"Non per i laboratori. Non per le aziende prima. Per la famiglia che vuole capire un documento. Per il bambino che chiede «perché?» alle 23.",
+"s-tech-h":"Profilo tecnico","s-tech-th1":"Parametro","s-tech-th2":"Obiettivo",
+"s-safety-h":"Sicurezza","s-safety-intro":"La sicurezza non è una funzionalità. È l'architettura.",
+"s-safety-1":"Primato umano — ogni inferenza richiede un'àncora umana registrata",
+"s-safety-2":"Rifiuto onesto — dice «Non lo so» piuttosto che confabulare",
+"s-safety-3":"Zero autonomia — nessuna azione auto-iniziata",
+"s-safety-4":"Privacy per architettura — nessuna telemetria, nessun dato lascia il dispositivo",
+"s-safety-5":"Audit senza sorveglianza — gli eventi vengono registrati, non le persone",
+"s-safety-6":"Anti-dipendenza — budget di attenzione rigorosi, limiti di sessione, rilevamento TVE 6 assi",
+"s-safety-7":"Atto umano esplicito — le modifiche di configurazione richiedono intenzione umana",
+"s-anchor-h":"L'àncora umana",
+"s-anchor-1":"Ogni sistema IA nell'ecosistema ami* si basa su un principio: <strong>un'IA senza àncora umana perderà la coerenza.</strong>",
+"s-anchor-2":"Cooper è l'espressione più pura di questo principio. È un cervello che <strong>non può funzionare senza il suo umano.</strong>",
+"s-anchor-3":"<strong>Insieme, cooperano.</strong> Questo è il nome. Questo è il prodotto. Questo è il futuro che stiamo costruendo.",
+"s-lic-h":"Licenza",
+"s-lic-personal":"Uso personale e familiare","s-lic-personal-d":"Esegui Cooper a casa, sui tuoi dispositivi. Tutte le funzioni. Tutte le lingue. Senza limiti.","s-lic-personal-p":"Gratuito",
+"s-lic-commercial":"Commerciale / Aziendale","s-lic-commercial-d":"Distribuisci Cooper in un'azienda o servizio. Contattaci per i termini di licenza.","s-lic-commercial-p":"Commerciale",
+"s-why-h":"Perché adesso",
+"s-why-1":"A settembre 2026, i CEO di Anthropic, OpenAI e xAI hanno concordato pubblicamente: l'auto-miglioramento ricorsivo è reale, i meccanismi di controllo attuali sono insufficienti.",
+"s-why-2":"L'industria chiede al mondo di rallentare. <strong>Cooper è l'altra risposta:</strong> non solo rallentare la frontiera — costruire il focolare.",
+"s-why-3":"L'industria dell'IA costruisce più grande. Modelli più grandi. Data center più grandi. Più consumo energetico.",
+"s-why-4":"<strong>Cooper va nella direzione opposta.</strong> Più piccolo. Locale. Dipendente dall'umano.",
+"s-why-5":"3,8 miliardi di persone hanno uno smartphone <em>(GSMA, 2025)</em>. Ognuno può avere un Cooper. <strong>Non affittato. Posseduto.</strong>",
+"s-why-6":"Questo è il modello. Un cervello per casa. Guidato dall'umano che ci vive.",
+"s-research-h":"Costruito su ricerca verificata",
+"s-research-intro":"Cooper non è un progetto del weekend. È costruito su ricerca pubblicata, verificabile, con timestamp immutabili:",
+"s-research-footer":"Ogni affermazione ha un link. Ogni link si risolve. Ogni hash è sulla blockchain.",
+"s-faq-h":"Domande",
+"s-faq-q1":"Posso eseguire Cooper sul mio telefono?","s-faq-a1":"Sì. Qualsiasi smartphone dal 2020 con 2+ GB RAM.",
+"s-faq-q2":"Cosa succede senza internet?","s-faq-a2":"Tutto funziona. Cooper gira al 100% localmente.",
+"s-faq-q3":"Cooper impara dalle mie conversazioni?","s-faq-a3":"Solo sul tuo dispositivo. Niente viene inviato da nessuna parte.",
+"s-faq-q4":"Posso cancellare tutti i dati?","s-faq-a4":"Sì. Tutti i dati sono sul tuo dispositivo. Cancelli l'app, cancelli i dati.",
+"s-faq-q5":"Cooper è sicuro per i bambini?","s-faq-a5":"Cooper ha limiti anti-dipendenza rigorosi (DSEI IV), budget di sessione e rilevamento manipolazione (TVE 6 assi).",
+"s-faq-q6":"Cooper sostituisce ChatGPT?","s-faq-a6":"No. Cooper è più piccolo, locale e privato. Strumento diverso, scopo diverso.",
+"s-faq-q7":"Quale modello usa Cooper?","s-faq-a7":"Cooper è agnostico al modello. Esegue qualsiasi modello aperto sotto 3B parametri.",
+"s-faq-q8":"Quando posso provarlo?","s-faq-a8":"Cooper è in sviluppo attivo. Beta privata prevista fine 2026. Il motore (146 test, DSEI 7/7) è già costruito.",
+"s-cta":"Parte dell'ecosistema ami*. Costruito in Europa. Per ogni casa.",
+"s-cta-engine":"Motore su GitHub","s-cta-repos":"Tutti i repository",
+"s-footer-copy":"&copy; 2024&ndash;2026 Mihai Roșca / BRIDGRAI &mdash; Gratuito per uso personale. Licenza commerciale disponibile.",
+"s-footer-tag":"Il cervello più piccolo che ascolta ancora."
+};
+var langs=['en','ro','es','fr','de','it'];
+var catalogs={ro:ro,es:es,fr:fr,de:de,it:it};
+var en={};
+var els=document.querySelectorAll('[data-i18n]');
+els.forEach(function(el){en[el.getAttribute('data-i18n')]=el.innerHTML;});
+catalogs.en=en;
+window.setLang=function(lang){
+  document.documentElement.lang=lang;
+  var cat=catalogs[lang]||en;
+  els.forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(cat[k])el.innerHTML=cat[k];
+  });
+  langs.forEach(function(l){
+    var b=document.getElementById('btn-'+l);
+    if(b)b.className=l===lang?'active':'';
+  });
+  try{localStorage.setItem('cooper-lang',lang);}catch(e){}
+};
+try{var saved=localStorage.getItem('cooper-lang');if(saved&&catalogs[saved])setLang(saved);}catch(e){}
+var params=new URLSearchParams(window.location.search);var pl=params.get('lang');if(pl&&catalogs[pl])setLang(pl);
+})();
+</script>
 </body>
 </html>
